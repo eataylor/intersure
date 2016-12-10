@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+{% load get_locations %}
+<html>
+  <head>
+    <title>Custom Markers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body  #map_canvas {
+     height: 400px;
+     width: 400px;
+     margin: 0px;
+     padding: 0px
+  }
+    </style>
+  </head>
+  <body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDP7mVHF9SO6tI4aDbrRPClqDNqUbgtcuI"></script>
+      
+ <script>
+
+    var locations = [
+  {% get_locations %}
+];
+ 
+var geocoder;
+var map;
+var bounds = new google.maps.LatLngBounds();
+google.maps.event.addDomListener(window, "load", initialize);
+function initialize() {
+  map = new google.maps.Map(
+    document.getElementById("map_canvas"), {
+      center: new google.maps.LatLng(44.986656, -93.258133),
+      zoom: 3,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+  geocoder = new google.maps.Geocoder();
+
+    for (i = 0; i < locations.length; i++) { 
+  /*for (i = 0; i < 1; i++) { */
+     var title = locations[i][0];
+     var address = locations[i][1];
+     var url = locations[i][3];
+     
+      
+
+     var marker = new google.maps.Marker({
+          icon: 'http://maps.google.com/mapfiles/ms/icons/blue.png',
+          map: map,
+          /*position: google.maps.LatLng(locations[i][1][0],locations[i][1][1]),*/
+          position:  new google.maps.LatLng(locations[i][1], locations[i][2]),
+          /* position:  locations[i][1] */
+          title: title,
+          animation: google.maps.Animation.DROP,
+          address: address, 
+          url: url
+        })
+        infoWindow(marker, map, title, address, url);
+        bounds.extend(marker.getPosition());
+        /*map.fitBounds(bounds);*/
+
+
+    /*geocodeAddress(locations, i);*/
+  }
+}
+
+/*
+google.maps.event.addDomListener(window, "load", initialize);
+
+function geocodeAddress(locations, i) {
+  var title = locations[i][0];
+  var address = locations[i][1];
+  var url = locations[i][2];
+  geocoder.geocode({
+      'address': locations[i][1]
+    },
+
+    function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        
+        var marker = new google.maps.Marker({
+          icon: 'http://maps.google.com/mapfiles/ms/icons/blue.png',
+          map: map,
+          position: results[0].geometry.location,
+          title: title,
+          animation: google.maps.Animation.DROP,
+          address: address,
+          url: url
+        })
+        infoWindow(marker, map, title, address, url);
+        bounds.extend(marker.getPosition());
+        map.fitBounds(bounds);
+      } else {
+        alert("geocode of " + address + " failed:" + status);
+      }
+    });
+} */
+
+function infoWindow(marker, map, title, address, url) {
+  google.maps.event.addListener(marker, 'click', function() {
+    var html = "<div><h3>" + title + "</h3><p>" + address + "<br></div><a href='" + url + "'>View location</a></p></div>";
+    iw = new google.maps.InfoWindow({
+      content: html,
+      maxWidth: 350
+    });
+    iw.open(map, marker);
+  });
+}
+
+function createMarker(results) {
+  var marker = new google.maps.Marker({
+    icon: 'http://maps.google.com/mapfiles/ms/icons/blue.png',
+    map: map,
+    position: results[0].geometry.location,
+    title: title,
+    animation: google.maps.Animation.DROP,
+    address: address,
+    url: url
+  })
+  bounds.extend(marker.getPosition());
+  map.fitBounds(bounds);
+  infoWindow(marker, map, title, address, url);
+  return marker;
+}
+      
+    </script>
+
+ 
+
+
+<div align=center id="map_canvas" style="width:750px; height:450px; border: 2px solid #3872ac;"></div>
+     
+  </body>
+</html>

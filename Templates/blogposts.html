@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load tagging_tags %}
+{% load archives %}
+ 
+{% block banner %}
+<br><br><br> 
+{% endblock banner %}    
+{% block main-content %}
+    <div class="main-content">
+    	<div class="container">
+
+    	  <div class="row">
+
+    	      <article class="span7"><!--   -->
+    	          <div class="lined">
+                        <h2>Intersure Blog Posts</h2>
+
+                        {% for post in foundposts %}
+                          
+                           <br><h2 style = "color:orange;">{{post.title}}</h2> 
+                           <br>Posted on {{post.date }}  by {{post.user}}<br>
+                            
+                          <p style="font-size:12px;">{{post.content|safe }}</p> <br>
+                         <p><strong>Posted in:
+                            {% for term in post.terms %}
+                                {{term}}
+                             {%endfor%}
+                          </strong></p>
+                           <span class="bolded-line"></span>
+                            
+                           
+                        
+                        {% endfor %}
+
+    	              <span class="bolded-line"></span>
+    	          </div>
+    	           
+    	           
+    	      </article><!-- /our services -->
+
+    	      <article class="span3"><!-- service -->
+    	          <div class="picture">
+    	               
+    	                   
+    	              	   
+    	          </div>
+    	           
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	      <article class="span3"><!-- service -->
+    	           
+    	          <div>
+    	          	<h3 class="size-18">Archives</h3>
+                        {% archive %}
+                        
+                        
+    	          	<span class="bolded-line"></span>
+    	          </div>
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	      <article class="span3"><!-- service -->
+    	          <div class="picture">
+    	               
+    	                   
+    	              	   
+    	          	   
+    	          </div>
+    	           
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	  </div><!-- /services -->
+
+    	  <div class="row">
+    	      <div class="span12">
+    	          <div class="divide-line">
+    	              <div class="icon icons-scissors"></div>
+    	          </div>
+    	      </div>
+    	  </div>
+
+    	  <div class="row">
+
+    	       
+    	       
+
+    	       
+
+    	  </div><!-- /row -->
+
+    	</div>
+    </div> <!-- /container -->
+ 
+    <div class="dark-stripe">
+         
+    </div><!-- /dark-stripe -->
+
+    <div class="container">
+
+        <div class="row"><!-- about us -->
+            <div class="span12">
+                <div class="lined">
+                     
+                    <span class="bolded-line"></span>
+                </div>
+                <div class="row">
+                     
+                    </div>
+                </div>
+            </div>
+        </div><!-- /about us -->
+
+         
+
+         
+
+    </div> <!-- /container -->
+{% endblock main-content %}
+
+ 
+ 
+  </body>
+   
+</html>

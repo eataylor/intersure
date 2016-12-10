@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load tagging_tags %}
+{% load archives %}
+ 
+{% block banner %}
+<br><br><br> 
+{% endblock banner %}    
+{% block main-content %}
+    <div class="main-content">
+    	<div class="container">
+
+    	  <div class="row">
+
+    	      <article class="span7"><!--   -->
+    	          <div class="lined">
+    	                 
+ 
+ 
+
+
+
+   
+{% if msg %}
+<h2 style="color:orange">{{ msg }} </h2>
+{% endif %}
+<h2>Directory Search Form</h2><br>
+<form action="search" method="post">{% csrf_token %}
+  <div class="form-group " >
+
+     <table>
+     <tr>
+     <td style="width:225px"> Number of Principals - Enter a Range: </td>
+     <td style="width:25px">Minimum: </td>
+     <td style="width:45px"> <input type="text" name="prin_min" maxlength="3" size="3"  style="width: 30px;height:11px; border: none;border-bottom: 2px solid orange;"> </td>
+     <td style="width:45px">Maximum: </td>
+     <td style="width:45px"><input type="text" name="prin_max" maxlength="3" size="3"  style="width: 30px;height:11px; border: none;border-bottom: 2px solid orange;"> {{prin_max}}  </td> 
+     </tr>
+     
+     <tr>
+     <td> Number of Employees - Enter a Range: </td>
+     <td>Minimum: </td>
+     <td><input type="text" name="emp_min" maxlength="5" size="5" style="width: 30px;height:11px; border: none;border-bottom: 2px solid orange;">{{emp_min}} </td>
+     <td>Maximum: </td>
+     <td><input type="text" name="emp_max" maxlength="5" size="5" style="width: 30px;height:11px; border: none;border-bottom: 2px solid orange;">{{emp_max}} </td> 
+     </tr>
+
+     <tr>
+     <td> Total Revenue - Enter a Range: </td>
+     <td>Minimum: </td>
+     <td> <input type="text" name="rev_min" maxlength="8" size="8" style="width: 65px;height:11px; border: none;border-bottom: 2px solid orange;">{{rev_min}}  </td>
+     <td>Maximum: </td>
+     <td> <input type="text" name="rev_max" maxlength="8" size="8" style="width: 65px;height:11px; border: none;border-bottom: 2px solid orange;">{{rev_max}}  </td> 
+     </tr>
+     <tr><td><h3>Business Breakdown %:</h3> </td></tr>
+ 
+
+     <tr>
+     <td>&nbsp;&nbsp;Commercial - Enter a range: </td>
+      <td>Minimum: </td>
+     <td><input type="text" name="comm_min" maxlength="5" size="5" style="width: 30px;height:11px; border: none;border-bottom: 2px solid orange;">{{comm_min}} </td> 
+     <td>Maximum: </td>
+     <td><input type="text" name="comm_max" maxlength="5" size="5" style="width: 30px;height:11px; border: none;border-bottom: 2px solid orange;">{{comm_max}} </td> 
+     </tr>
+        
+       <tr>     
+            <td>&nbsp;&nbsp;Employee Benefits - Enter a range</td>
+            <td>Minimum: </td>
+            <td><input type="text" name="bene_min" maxlength="5" size="5" style="width: 30px;height:11px; border: none;border-bottom: 2px solid orange;">{{bene_min}} </td> 
+            <td>Maximum: </td>
+             <td><input type="text" name="bene_max" maxlength="5" size="5" style="width: 30px;height:11px; border: none;border-bottom: 2px solid orange;">{{bene_max}} </td>
+        </tr>
+          
+         <tr>
+            <td>&nbsp;&nbsp;Personal  </td>
+            <td>Minimum: </td>
+             <td><input type="text" name="pers_min" maxlength="5" size="5" style="width: 30px;height:11px; border: none;border-bottom: 2px solid orange;">{{pers_min}} </td>
+            <td>Maximum: </td>
+            <td><input type="text" name="pers_max" maxlength="5" size="5" style="width: 30px;height:11px; border: none;border-bottom: 2px solid orange;">{{pers_max}} </td> 
+     
+          </tr>
+</table>
+<table> 
+          
+      <tr><td><h3>Office Management Systems:</h3> </td></tr>
+      <tr>
+     <td>Select a CRM : </td>
+      <td>{{form.crm}}</td>
+     </tr>
+
+     <tr>
+     <td>Select a AMS : </td>
+      <td>{{form.ams}}</td>
+     </tr>
+        
+     </table>    
+
+
+ <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+    	          </div>
+    	           
+    	           
+    	      </article><!-- /our services -->
+
+    	       
+              <!-- 
+    	      <article class="span3"> 
+    	           
+    	          <div>
+    	          	<h3 class="size-18">Blog Archives:</h3>
+                         
+                        {% archive %}
+    	          	<span class="bolded-line"></span>
+    	          </div>
+    	          <p> </p>
+    	           
+    	      </article>  -->
+
+    	      <article class="span3"><!-- service -->
+    	          <div class="picture">
+    	               
+    	                   
+    	              	   
+    	          	   
+    	          </div>
+    	           
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	  </div><!-- /services -->
+
+    	  <div class="row">
+    	       
+    	  </div>
+
+    	  <div class="row">
+
+    	       
+    	       
+
+    	       
+
+    	  </div><!-- /row -->
+
+    	</div>
+    </div> <!-- /container -->
+ 
+     
+
+    <div class="container">
+
+         
+
+         
+
+         
+
+    </div> <!-- /container -->
+{% endblock main-content %}
+
+ 
+ 
+  </body>
+   
+</html>

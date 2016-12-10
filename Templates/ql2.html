@@ -1,0 +1,6 @@
+<ul style="color:orange;"> 
+{% for rel in rels %}
+    <li style="font-size:13px"> <a style="color:orange" href="/static/{{rel.filename}}">{{ rel.blurb }}</a> </li>
+ 
+{% endfor %}
+

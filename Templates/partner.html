@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+{% load tagging_tags %}
+   
+   
+{% block main-content %}
+    <div class="main-content">
+    	<div class="container">
+
+    	  <div class="row" style="align=center">
+
+    	      <article class="span5"><!--   -->
+    	          <div class="lined">
+    	              <h2><a href="\"><span class="light">Specialties</span></a></h2>
+                      {% tag_cloud_for_model Isure.Directory as dtags with steps=8  distribution=log %}
+                      <br> 
+                      {% for item in dtags %}
+
+                           
+                            <a href="/partners?spec={{item.id}}"><span style="font-size:2{{item.font_size}}px;color:orange;">{{item.name}}   </span></a>   
+
+                      {% endfor %} 
+                          
+    	              
+    	              <span class="bolded-line"></span>
+    	          </div>
+    	           
+    	           
+    	      </article><!-- /our services -->
+
+    	      <article class="span3"><!-- service -->
+    	          <div class="picture">
+    	               
+    	                   
+    	              	   
+    	          </div>
+    	          <div>
+    	          	
+                       <a href="https://launchpad.37signals.com/basecamp" target="_blank"> <img src="/static/Pics/Members-Only-Basecamp-copy.jpg" alt="" width="215" height="137" /> </a>
+    	          	<span class="bolded-line"></span>
+    	          </div>
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	      <article class="span3"><!-- service -->
+    	           
+    	          <div>
+    	          	<h3 class="size-18">Business Directory
+
+                         {% if thisname %}({{thisname}}) {% endif %}</h3>
+                         <table>
+                         {% for item in theseItems %}
+                         <tr>
+                         <td><strong>{{item.AgencyName}}</strong><br><br>
+                             {{item.Differentiator}}<br>
+                             <strong>Specialty:</strong> {{item.tags}}
+                          </td>
+                         <td> IMAGE GOES HERE </td>
+                         
+                         </tr>
+                         <tr><td><p><a href="dirview?mem={{item.id}}"><button type="button" class="btn btn-info btn-xs">View</button></a></p></td></tr>
+                          
+                         {% endfor %}
+                         </table>
+                        
+    	          	<span class="bolded-line"></span>
+    	          </div>
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	       
+
+    	  </div><!-- /services -->
+
+    	  <div class="row">
+    	      <div class="span12">
+    	          <div class="divide-line">
+    	              <div class="icon icons-scissors"></div>
+    	          </div>
+    	      </div>
+    	  </div>
+
+    	  <div class="row">
+
+    	       
+    	       
+
+    	       
+
+    	  </div><!-- /row -->
+
+    	</div>
+    </div> <!-- /container -->
+ 
+    <div class="dark-stripe">
+         
+    </div><!-- /dark-stripe -->
+
+    <div class="container">
+
+        <div class="row"><!-- about us -->
+            <div class="span12">
+                <div class="lined">
+                     
+                    <span class="bolded-line"></span>
+                </div>
+                <div class="row">
+                     
+                    </div>
+                </div>
+            </div>
+        </div><!-- /about us -->
+
+         
+
+         
+
+    </div> <!-- /container -->
+{% endblock main-content %}
+
+
+  </body>
+   
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+{% load tagging_tags %}
+{% load quick_links %}
+ 
+{% block banner %}
+<br><br><br> 
+{% endblock banner %}
+  
+   
+{% block main-content %}
+    <div class="main-content">
+    	<div class="container">
+
+    	  <div class="row">
+
+    	      <article class="span7"><!--   -->
+    	          <div class="lined">
+                      <div class="post-entry">
+					 
+
+
+{% if msg %}
+<h2 style="color:orange"> {{ msg }} </h2>
+{% endif %}
+<form action="contact" method="post">{% csrf_token %}
+
+<div style="display: none;">
+ 
+</div>  
+<h2>Share Your Thoughts and Interests...</h2><br>
+  <div class="form-group " >
+
+     
+
+     <label for="yourname">
+{% if form.yourname.errors %}  <SPAN class=error><font color=#FF0000>Your Name(is Required)</font></SPAN>
+     {% else %}Your Name(Required) {% endif %}
+   </label>
+     <input type="text" class="form-control" id="yourname" name="yourname"placeholder="Enter Your name"
+      {% if updatemode %} value = {{name}} {% endif %}></textarea>
+
+
+   <label for="youremail">
+{% if form.youremail.errors %}  <SPAN class=error><font color=#FF0000>Your Email(is Required)</font></SPAN>
+     {% else %}Your email(Required) {% endif %}
+   </label>
+
+
+       
+    <input type="email" class="form-control" id="youremail" name="youremail" aria-describedby="emailHelp" placeholder="Enter email"
+     {% if updatemode %} value = {{email}} {% endif %}>
+    <small id="emailHelp" class="form-text text-muted"> (We'll never share your email with anyone else.)</small>
+
+    <label for="yoursubj">Subject</label>
+     <input type="text" class="form-control" id="yoursubj" name="yoursubj" placeholder="Subject "
+           {% if updatemode %} value = {{subj}}>{% endif %}</textarea>
+     <div class="col-xs-6" style="width: 200px;">
+
+      <label for="yourmsg">Message</label>
+      <textarea class="form-control input-lg" id="yourmsg" name="yourmsg" style="width:300" 
+      {% if updatemode %} value = {{msg}} {% endif %}></textarea>
+     </div>
+  </div>
+ <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+<br><br>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+ 
+
+                       
+    	          </div>
+    	           
+    	           
+    	      </article><!-- /our services -->
+
+    	      <article class="span3"><!-- service -->
+    	          <div class="picture">
+    	               
+    	                   
+    	              	   
+    	          </div>
+    	          <div>
+    	          	
+                      
+    	          	 
+    	          </div>
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	      <article class="span3"><!-- service -->
+    	           
+    	          <div>
+    	          	<h3 class="size-18"> </h3>
+                         
+                         
+                        
+    	          	 
+    	          </div>
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	      <article class="span3"><!-- service -->
+    	          <div class="picture">
+    	               
+    	                   
+    	              	   
+    	          	   
+    	          </div>
+    	           
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	  </div><!-- /services -->
+
+    	  
+
+    	  <div class="row">
+
+    	       
+    	       
+
+    	       
+
+    	  </div><!-- /row -->
+
+    	</div>
+    </div> <!-- /container -->
+ 
+    
+
+    <div class="container">
+
+        <div class="row"><!-- about us -->
+             
+        </div><!-- /about us -->
+
+         
+
+         
+
+    </div> <!-- /container -->
+{% endblock main-content %}
+
+
+  </body>
+   
+</html>

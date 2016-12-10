@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load tagging_tags %}
+{% load get_locations %}
+{% load archives %}
+ 
+{% block banner %}
+<br><br><br> 
+{% endblock banner %}    
+{% block main-content %}
+<style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      div  #map_canvas {
+     height: 400px;
+     width: 450px;
+     margin: 0px;
+     padding: 0px
+  }
+    </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDP7mVHF9SO6tI4aDbrRPClqDNqUbgtcuI"></script>
+<!--
+<script src="/static/js/mapper.js"></script>
+-->
+<script>
+
+    var locations = [
+  {% get_locations %}
+];
+   
+ 
+var geocoder;
+var map;
+var bounds = new google.maps.LatLngBounds();
+google.maps.event.addDomListener(window, "load", initialize);
+function initialize() {
+  map = new google.maps.Map(
+    document.getElementById("map_canvas"), {
+      center: new google.maps.LatLng(44.986656, -93.258133),
+      zoom: 3,
+      panControl: true,
+      zoomControl: true,
+      zoomControlOptions: {
+        position: google.maps.ControlPosition.LEFT_BOTTOM },
+
+      mapTypeControl: true,
+      /*scaleControl: true,*/
+      streetViewControl: false,
+      overviewMapControl: true,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+  geocoder = new google.maps.Geocoder();
+
+    for (i = 0; i < locations.length; i++) { 
+  /*for (i = 0; i < 1; i++) { */
+     var title = locations[i][0];
+     var address = locations[i][6];
+     var url = locations[i][3];
+     var state = locations[i][4];
+     var contact = locations[i][5];
+     var city = locations[i][7];
+      
+     
+      
+
+     var marker = new google.maps.Marker({
+          icon: 'http://intersure.tmcmarkets.com/wp-content/uploads/2015/01/GoogleMapsPin.png',
+          map: map,
+          /*position: google.maps.LatLng(locations[i][1][0],locations[i][1][1]),*/
+          position:  new google.maps.LatLng(locations[i][1], locations[i][2]),
+          /* position:  locations[i][1] */
+          state: state,
+          title: title,
+          animation: google.maps.Animation.DROP,
+          address: address, 
+          url: url
+        })
+        infoWindow(marker, map, state,title, address, url,contact,city);
+        bounds.extend(marker.getPosition());
+        /*map.fitBounds(bounds);*/
+
+
+    /*geocodeAddress(locations, i);*/
+  }
+}
+
+/*
+google.maps.event.addDomListener(window, "load", initialize);
+
+function geocodeAddress(locations, i) {
+  var title = locations[i][0];
+  var address = locations[i][1];
+  var url = locations[i][2];
+  geocoder.geocode({
+      'address': locations[i][1]
+    },
+
+    function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        
+        var marker = new google.maps.Marker({
+          icon: 'http://maps.google.com/mapfiles/ms/icons/blue.png',
+          map: map,
+          position: results[0].geometry.location,
+          title: title,
+          animation: google.maps.Animation.DROP,
+          address: address,
+          url: url
+        })
+        infoWindow(marker, map, title, address, url);
+        bounds.extend(marker.getPosition());
+        map.fitBounds(bounds);
+      } else {
+        alert("geocode of " + address + " failed:" + status);
+      }
+    });
+} */
+
+function infoWindow(marker, map, state,title, address, url,contact,city) {
+  google.maps.event.addListener(marker, 'click', function() {
+    var html = "<div><h3>"+ state+"<br>" + title + "</h3><p>" + contact + "<br>"+address+"<br>"+city+"</div><a target='_blank'  href='" + 
+                url + "'>View Website</a></p></div>";
+    iw = new google.maps.InfoWindow({
+      content: html,
+      maxWidth: 550
+    });
+    iw.open(map, marker);
+  });
+}
+
+function createMarker(results) {
+  var marker = new google.maps.Marker({
+    icon: 'http://intersure.tmcmarkets.com/wp-content/uploads/2015/01/GoogleMapsPin.png',
+    map: map,
+    position: results[0].geometry.location,
+    title: title,
+    animation: google.maps.Animation.DROP,
+    address: address,
+    url: url
+  })
+  bounds.extend(marker.getPosition());
+  map.fitBounds(bounds);
+  infoWindow(marker, map,state, title, address, url,contact,city);
+  return marker;
+}
+      
+    </script>
+
+
+
+
+    <div class="main-content">
+    	<div class="container">
+
+    	  <div class="row">
+
+    	      <article class="span7"><!--   -->
+    	          <div class="lined">
+    	                
+
+<div align=center id="map_canvas" style="width:850px; height:350px;padding-left: 1cm;"></div>
+ 
+
+    	          </div>
+    	           
+    	           
+    	      </article><!-- /our services -->
+
+    	       
+              <!-- 
+    	      <article class="span3"> 
+    	           
+    	          <div>
+    	          	<h3 class="size-18">Blog Archives:</h3>
+                         
+                        {% archive %}
+    	          	<span class="bolded-line"></span>
+    	          </div>
+    	          <p> </p>
+    	           
+    	      </article>  -->
+
+    	      <article class="span3"><!-- service -->
+    	          <div class="picture">
+    	               
+    	                   
+    	              	   
+    	          	   
+    	          </div>
+    	           
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	  </div><!-- /services -->
+
+    	  <div class="row">
+    	       
+    	  </div>
+
+    	  <div class="row">
+
+    	       
+    	       
+
+    	       
+
+    	  </div><!-- /row -->
+
+    	</div>
+    </div> <!-- /container -->
+ 
+     
+
+    <div class="container">
+
+         
+
+         
+
+         
+
+    </div> <!-- /container -->
+{% endblock main-content %}
+
+ 
+ 
+  </body>
+   
+</html>

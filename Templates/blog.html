@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load tagging_tags %}
+{% load archives %}
+ 
+{% block banner %}
+<br><br><br> 
+{% endblock banner %}    
+{% block main-content %}
+    <div class="main-content">
+    	<div class="container">
+
+    	  <div class="row">
+
+    	      <article class="span7"><!--   -->
+    	          <div class="lined">
+                        <h2>Intersure Blog Posts 
+                        {% if textmonth %}
+                           For {{textmonth}} {{thisyear}}
+                         {% endif %}
+
+                        </h2>
+
+                        {% for post in theseposts %}
+                          
+                           <br><h2 style = "color:orange;">{{post.title}}</h2> 
+                           <br>Posted on {{post.date }}  by {{post.user}}<br>
+                            
+                          <p style="font-size:16px;">{{post.content|safe }}</p> <br>
+                         <p><strong>Posted in:
+                            {% for term in post.terms %}
+                                {{term}}
+                             {%endfor%}
+                          </strong></p>
+                           <span class="bolded-line"></span>
+                            
+                           
+                        
+                        {% endfor %}
+
+    	               
+    	          </div>
+    	           
+    	           
+    	      </article><!-- /our services -->
+
+    	      
+
+    	      <article class="span3"><!-- service -->
+    	           
+    	          <div>
+    	          	<h3 class="size-18">Archives</h3>
+                        {% archive %}
+                        
+                        
+    	          	<span class="bolded-line"></span>
+    	          </div>
+    	           
+    	           
+    	      </article><!-- /service -->
+
+    	       
+    	  </div><!-- /services -->
+
+    	   
+
+    	       
+    	       
+
+    	       
+
+    	  </div><!-- /row -->
+
+    	</div>
+    </div> <!-- /container -->
+ 
+     
+
+    <div class="container">
+
+         
+
+         
+
+         
+
+    </div> <!-- /container -->
+{% endblock main-content %}
+
+ 
+ 
+  </body>
+   
+</html>

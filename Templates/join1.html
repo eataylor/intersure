@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load tagging_tags %}
+{% load archives %}
+ 
+{% block banner %}
+<br><br><br> 
+{% endblock banner %}    
+{% block main-content %}
+    <div class="main-content">
+    	<div class="container">
+
+    	  <div class="row">
+
+    	      <article class="span7"><!--   -->
+    	          <div class="lined">
+    	                <img   src="/static/Pics/Why-join-Intersure2-1024x354.jpg" alt="Why join Intersure" width="860" height="228" />
+<p style="font-size:16px;"  dir="ltr">If you’re an independent insurance broker looking to grow, Intersure is the place you need to be.  We come together to share ideas, help each other grow, and above all, challenge each other. Our member companies are <strong>committed to each other at the deepest level</strong> and share openly — knowing that what’s said between partners is confidential.</p>
+<ul>
+<li>
+<p style="font-size:16px;" dir="ltr">Build your network</p>
+</li>
+<li>
+<p style="font-size:16px;" dir="ltr">Learn from the challenges and opportunities other agencies are facing</p>
+</li>
+<li>
+<p style="font-size:16px;" dir="ltr"><strong>Get “under the hood”</strong> of similar but non competing firms</p>
+</li>
+<li>
+<p style="font-size:16px;" dir="ltr">Take focused time to step back and work ON the business, not just IN it</p>
+</li>
+</ul>
+<h1>What This Means to Our Clients</h1>
+<p style="font-size:16px;" dir="ltr">Intersure enables member companies to pool their highly specialized, local and regional knowledge in the service of their clients.  Have a customer with an operation in Florida?  <strong>We have a partner</strong> that can help you meet their needs.</p>
+<p style="font-size:16px;" dir="ltr">Clients of Intersure partners have learned that <strong>they are getting the best of both worlds</strong>: the personal, hands-on service of an independent broker, and the purchasing power and marketing clout associated with over $2.5 billion in annual premiums managed by Intersure’s members.</p>
+<h1>Contact Form</h1>
+<div role="form" class="wpcf7" id="wpcf7-f147-p48-o1" lang="en-US" dir="ltr">
+<div class="screen-reader-response"></div>
+
+<form action="join" method="post">{% csrf_token %}
+
+<div style="display: none;">
+ 
+</div>  
+{% if msg %}
+<h2 style="color:orange">{{ msg }} </h2>
+{% endif %}
+<h2>Join Us...</h2><br>
+  <div class="form-group " >
+
+     
+
+     <label for="yourname">
+{% if form.yourname.errors %}  <SPAN class=error><font color=#FF0000>Your Name(is Required)</font></SPAN>
+     {% else %}Your Name(Required) {% endif %}
+   </label>
+     <input type="text" class="form-control" id="yourname" name="yourname"placeholder="Enter Your name"
+      {% if updatemode %} value = {{name}} {% endif %}></textarea>
+
+
+   <label for="youremail">
+{% if form.youremail.errors %}  <SPAN class=error><font color=#FF0000>Your Email(is Required)</font></SPAN>
+     {% else %}Your email(Required) {% endif %}
+   </label>
+
+
+       
+    <input type="email" class="form-control" id="youremail" name="youremail" aria-describedby="emailHelp" placeholder="Enter email"
+     {% if updatemode %} value = {{email}} {% endif %}>
+    <small id="emailHelp" class="form-text text-muted"> (We'll never share your email with anyone else.)</small>
+
+    <label for="yoursubj">Subject</label>
+     <input type="text" class="form-control" id="yoursubj" name="yoursubj" placeholder="Subject "
+           {% if updatemode %} value = {{subj}}>{% endif %}</textarea>
+     <div class="col-xs-6" style="width: 200px;">
+
+      <label for="yourmsg">Message</label>
+      <textarea class="form-control input-lg" id="yourmsg" name="yourmsg" style="width:300" 
+      {% if updatemode %} value = {{msg}} {% endif %}></textarea>
+     </div>
+  </div>
+ <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+    	          </div>
+    	           
+    	           
+    	      </article><!-- /our services -->
+
+    	       
+              <!-- 
+    	      <article class="span3"> 
+    	           
+    	          <div>
+    	          	<h3 class="size-18">Blog Archives:</h3>
+                         
+                        {% archive %}
+    	          	<span class="bolded-line"></span>
+    	          </div>
+    	          <p> </p>
+    	           
+    	      </article>  -->
+
+    	      <article class="span3"><!-- service -->
+    	          <div class="picture">
+    	               
+    	                   
+    	              	   
+    	          	   
+    	          </div>
+    	           
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	  </div><!-- /services -->
+
+    	  <div class="row">
+    	       
+    	  </div>
+
+    	  <div class="row">
+
+    	       
+    	       
+
+    	       
+
+    	  </div><!-- /row -->
+
+    	</div>
+    </div> <!-- /container -->
+ 
+     
+
+    <div class="container">
+
+         
+
+         
+
+         
+
+    </div> <!-- /container -->
+{% endblock main-content %}
+
+ 
+ 
+  </body>
+   
+</html>

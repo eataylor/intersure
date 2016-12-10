@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load tagging_tags %}
+ 
+{% block banner %}
+<br><br><br> 
+{% endblock banner %}    
+{% block main-content %}
+    < <div class="main-content">
+    	<div class="container">
+    		<div class="row">
+
+                <div class="span12" style=" display: table;">
+                
+                <div class="span6" style="display: table-row"><!-- latest news -->
+    	          <div class="lined" style="display: table-cell">
+    	              <!-- MAIN starts here -->
+	<div id="main" style="width: 70%;  display: table;">
+        <div id="content-wrap" style=" text-align: left; display: table-row" >
+			
+		<p font-size: 12pt>{{ msg }} 
+{% if form.errors %} 
+<P class=error style="color: #ff0033; font-size: 12pt">Please correct the errors below:</P>
+
+ 
+
+{% endif %}
+                <h1 align="left">Intersure Image(Picture) Upload</h1>
+
+{% if success %} 
+  <p font-size: 12pt><span style="color: #cc3300;">Uploaded {{ fnames|length }} File(s)</span> </p>
+{% endif %}
+
+<form id="form1" action="/imageupload" method="post" enctype="multipart/form-data">{% csrf_token %}
+<table width="100%" border="0" cellpadding="4" cellspacing="0">
+  <tr>
+    <td align="left" valign="top" colspan="3"><strong>Complete the form below as Indicated.<br />
+ 
+<br />
+</td>
+
+  </tr>
+  <tr>
+	<td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top" colspan="2"><br />
+    <strong style="font-size: 18px; font-family: helvetica, arial, verdana, sans-serif;"><span style="color: #cc3300;">STEP 1:</span> Picture Description/Album Selection</strong></td>
+  </tr>
+  <tr>
+
+    <td align="left" valign="top">&nbsp;</td>
+    <td align="right" valign="top" style="width: 170px;"><span class="req">*</span> Description<br /></td>
+    <td align="left" valign="top"><input style="width: 130px;" id="desc" name="desc" type="text" size="24" value= {{this_desc}}>
+{% if form.desc.errors  %} <SPAN class=error style="color: #ff0033; font-size: 8pt">( 
+                     {{ form.desc.errors|join:", " }})</SPAN>
+                 {% else %}
+{% endif %}   
+
+  </td>
+  </tr>
+  <tr>
+  	<td align="left" valign="top">&nbsp;</td>
+    <td align="right" valign="center"><span class="req">* </span>Album </td><td>{{form.album}}  
+  <a href="/admin/kutzandcolors/album/add/" class="add-another" id="add_id_album" onclick="return showAddAnotherPopup(this);"> <img src="http://mhtennis.com/static/static/admin/img/icon_addlink.gif" width="12" height="14" alt="Add Another"/></a>  
+    </td>
+     
+
+  	<td align="left" valign="top">
+  
+{% if form.event.errors  %} <SPAN class=error style="color: #ff0033; font-size: 8pt">( 
+                     {{ form.event.errors|join:", " }})</SPAN>
+                 {% else %}
+{% endif %}   
+
+  </td>
+  </tr>
+  
+  <tr>
+  
+  
+  </tr>
+   
+
+
+
+
+<tr>
+	<td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top" colspan="2"><br />
+    <strong style="font-size: 18px; font-family: helvetica, arial, verdana, sans-serif;"><span style="color: #cc3300;">STEP 2:</span> Select Pictures to upload</strong></td>
+  </tr>
+
+
+<tr>
+	<td align="left" valign="top">&nbsp;</td>
+    <td align="left" valign="top" colspan="2"><br />
+     
+    You may upload as many as 4 photos at once. The file size limit is 1.8MB per image and photos must be in an image format, meaning they have the .jpg, .gif, .png, or like extension.<br />
+    <br />
+
+<div align="center" style="padding-right: 20px;" >
+               <div style="display: table-cell">
+
+		<label for="file">Image 1:</label>
+		<input type="file" name="file1" id="file1" />
+
+               <br />
+{% if form.file1.errors  %} <SPAN class=error style="color: #ff0033; font-size: 8pt">( 
+                     {{ form.file1.errors|join:", " }})</SPAN>
+                 {% else %}
+{% endif %}
+         </div>
+                
+		
+         <div style="display: table-cell">
+		<label for="file">Image 2:</label>
+		<input type="file" name="file2" id="file2" />
+		<br />
+{% if form.file2.errors  %} <SPAN class=error style="color: #ff0033; font-size: 8pt">( 
+                     {{ form.file2.errors|join:", " }})</SPAN>
+                 {% else %}
+{% endif %}
+
+
+        </div>
+          <div style="display: table-cell">
+		<label for="file">Image 3:</label>
+		<input type="file" name="file3" id="file3" />
+		
+{% if form.file3.errors  %} <SPAN class=error style="color: #ff0033; font-size: 8pt">( 
+                     {{ form.file3.errors|join:", " }})</SPAN>
+                 {% else %}
+{% endif %}
+<br />
+          </div>
+         <div  style="display: table-cell">
+                 
+            
+		<label for="file">Image 4:</label>
+		<input type="file" name="file4" id="file4" /><br />
+		
+
+{% if form.file4.errors  %} <SPAN class=error style="color: #ff0033; font-size: 8pt">( 
+                     {{ form.file4.errors|join:", " }})</SPAN>
+                 {% else %}
+{% endif %}
+
+        </div>
+         <div class="span12">
+                <div class="divide-line">
+                    <div class="icon icons-scissors"></div>
+                </div>
+            </div>
+		<label for="ToEmail"></label>
+		
+		</div></td>
+</tr>
+  <tr class="rowcolor1">
+    <td align="left" valign="top">&nbsp;</td>
+
+    <td align="left" valign="top" colspan="2"><br />
+      <strong>Only click the submit button once</strong>. It will take a minute or two for your request to process because images take a littl time to upload. When the image(s) have uploaded completely you will see the number uploaded at the top of this page in red.<br />
+    <br />
+<center><input type="submit" name="submit-button" id="submit-button" value="Submit Photos to upload" />&nbsp;&nbsp;&nbsp;<input type="reset" value="Clear Form"/></center><br />
+<br />
+<br />
+</td>
+  </tr>
+</table>
+</form><br />
+
+
+		
+			
+		 
+        					
+	
+								
+	</div>	
+	
+</div> 
+    	               
+    	              
+    	              <span class="bolded-line"></span>
+    	          </div>
+    	          
+    	           
+                    
+    	         
+    	          
+    	      </div><!-- /latest news -->
+                
+                
+                
+                </div>
+
+         
+
+            </div><!-- /row -->
+            
+            
+            
+            
+    	</div><!-- /container -->
+    </div>
+{% endblock main-content %}
+
+ 
+ 
+  </body>
+   
+</html>

@@ -1,0 +1,28 @@
+
+<div class="highslide-gallery">
+<h2> Highlights from Prior Intersure Meetings   </h2>
+{% for k,v in albumdict.items %}
+  <h3>   </h3>
+     
+    {% for image,thumb in v %}
+         {% if forloop.first %}
+
+           <a id="thumb1" href="{{thumb}}" class="highslide" onclick="return hs.expand(this, { slideshowGroup: {{forloop.parentloop.counter}} } )">
+	   <img src="{{thumb}}" alt="Highslide JS" width="150px" height=150px
+		title="Click to enlarge" /> <strong>{{k}}    
+
+            
+
+         <div class="hidden-container">
+         {% else %}
+          <a href="{{thumb}}" class="highslide" 
+		onclick="return hs.expand(this, { thumbnailId: 'thumb1', slideshowGroup: {{forloop.parentloop.counter}} })"></a>
+	<div class="highslide-caption">
+		{{k}}
+	</div> 
+       {% endif %}
+    {% endfor %}
+      </div> 
+   
+{% endfor %}
+</div>

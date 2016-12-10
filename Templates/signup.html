@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load tagging_tags %}
+ 
+{% block banner %}
+<br><br><br> 
+{% endblock banner %}    
+{% block main-content %}
+    <div class="main-content">
+    	<div class="container">
+
+    	  <div class="row">
+
+    	      
+
+    	      <article class="span5"><!-- service -->
+    	          <div class="picture">
+    	            
+			<H1>Members may Request Login Authority</H1>
+                        <h2>Note: For Security purposes Enter the email address you have in the directory.
+                        <br>That email address will be your login id </h2>
+                        <h2> </h2>
+			<br>
+                        {% if msg %}
+                           <P><font color=#FF0000>{{msg}}</P>
+
+                        {% endif %}
+
+                        {% if  form.errors   %} 
+			<P><font color=#FF0000>There are errors with what you entered:</P>
+			 {{   form.non_field_errors  }} 
+			</font>
+		    {% endif %} 
+                        <br>
+			<FORM action="signup"method=post>{% csrf_token %}
+			 
+			<table border = 0>
+			<tr>
+			  
+			  <th><LABEL for=email_id>Enter Your Email Address:</LABEL></th>
+			  <td>{% if form.email_id.errors %} <br><SPAN class=error><font color=#FF0000>
+			{{ form.email_id.errors|join:", " }}</font>
+			</SPAN> {% endif %}  <input type = textarea size=30 name=email_id value = {{email_id}} ></td>
+			</tr><tr>
+			  <th><LABEL for=id_password>Enter a Password:</LABEL></th>
+			  <td> {% if form.password.errors %}<br> <SPAN class=error><font color=#FF0000>* 
+			{{ form.password.errors|join:", " }}</font> 
+			</SPAN> {% endif %}<input type = password size=30 name="password" 
+					   value = "{{password}}" ></td>
+			</tr>
+
+                        <tr>
+			  <th><LABEL for=id_password2>Reenter Password:</LABEL></th>
+			  <td> {% if form.password2.errors %}<br> <SPAN class=error><font color=#FF0000>* 
+			{{ form.password.errors|join:", " }}</font> 
+			</SPAN> {% endif %}<input type = password size=30 name="password2" 
+					   value = "{{password}}" ></td>
+			</tr>
+			<tr>  
+			  <td><INPUT type=submit value="Sign Up"> </td> </tr>   
+			  <tr> 
+			  
+
+                          </table></FORM>   
+    	                   
+    	              	   
+    	          </div>
+    	           
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	      
+
+    	      <article class="span3"><!-- service -->
+    	          <div class="picture">
+    	               
+    	                   
+    	              	   
+    	          	   
+    	          </div>
+    	           
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	  </div><!-- /services -->
+
+    	  <div class="row">
+    	      <div class="span12">
+    	          <div class="divide-line">
+    	              <div class="icon icons-scissors"></div>
+    	          </div>
+    	      </div>
+    	  </div>
+
+    	  <div class="row">
+
+    	       
+    	       
+
+    	       
+
+    	  </div><!-- /row -->
+
+    	</div>
+    </div> <!-- /container -->
+ 
+    <div class="dark-stripe">
+         
+    </div><!-- /dark-stripe -->
+
+    <div class="container">
+
+        <div class="row"><!-- about us -->
+            <div class="span12">
+                <div class="lined">
+                     
+                    <span class="bolded-line"></span>
+                </div>
+                <div class="row">
+                     
+                    </div>
+                </div>
+            </div>
+        </div><!-- /about us -->
+
+         
+
+         
+
+    </div> <!-- /container -->
+{% endblock main-content %}
+
+ 
+ 
+  </body>
+   
+</html>
