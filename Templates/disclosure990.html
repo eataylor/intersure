@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+{% load showDisclosures %}
+{% load tagging_tags %}
+{% load quick_links %}
+ 
+{% block banner %}
+<br><br><br> 
+{% endblock banner %}   
+   
+{% block main-content %}
+    <div class="main-content">
+    	<div class="container">
+
+    	  <div class="row">
+
+    	      <article class="span7"><!--   -->
+    	          <div class="lined">
+                       
+
+    	              <h1 class="entry-title post-title"></h1>
+
+
+				<div class="post-entry">
+					 
+ 
+<p> </p>
+ 
+
+
+				<div class="post-entry">
+					<h2>Required Federal Disclosure Form 990:</h2>
+{% get_form_990 %}
+ 
+									</div>
+				<!-- end of .post-entry -->
+ 
+
+ 
+
+                      </p>
+    	               
+    	          </div>
+    	           
+    	           
+    	      </article><!-- /our services -->
+
+    	       
+
+    	       
+
+    	      <article class="span3"><!-- service -->
+    	          <div class="picture">
+    	               
+    	                   
+    	              	   
+    	          	   
+    	          </div>
+    	           
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	  </div><!-- /services -->
+
+    	  
+
+    	       
+    	       
+
+    	       
+
+    	  </div><!-- /row -->
+
+    	</div>
+    </div> <!-- /container -->
+ 
+    
+
+    <div class="container">
+
+         
+
+         
+
+         
+
+    </div> <!-- /container -->
+{% endblock main-content %}
+
+
+  </body>
+   
+</html>

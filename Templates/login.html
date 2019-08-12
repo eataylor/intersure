@@ -15,12 +15,19 @@
 
     	      <article class="span5"><!-- service -->
     	          <div class="picture">
+    	          
+    	            
+    	             <h1 style="color:orange">Welcome to the Intersure Member Portal </h1>
+    	             <br style="line-height:38px;">
     	            {% if  form.errors   %} 
 			<P><font color=#FF0000>There are errors with what you entered:</P>
 			 {{   form.non_field_errors  }} 
 			</font>
-		    {% endif %} 
-			<H1>Enter Your UserName and Password</H1>
+		    {% endif %}
+		          
+		          
+		         
+			<H2>Enter Your UserName and Password</H2>
 			<br>
 			<FORM action="login"method=post>{% csrf_token %}
 			 
@@ -31,6 +38,7 @@
 			  <td>{% if form.username.errors %} <br><SPAN class=error><font color=#FF0000>
 			{{ form.username.errors|join:", " }}</font>
 			</SPAN> {% endif %}  <input type = textarea size=30 name=username value = {{username}} ></td>
+			         <td rowspan="2" align=right> &nbsp;&nbsp;&nbsp;<img src="static/Pics/intersure_logo2.png" alt="Intersure Logo" width="300" height="450" class="logo"   /></td>
 			</tr><tr>
 			  <th><LABEL for=id_password>Password:</LABEL></th>
 			  <td> {% if form.password.errors %}<br> <SPAN class=error><font color=#FF0000>* 
@@ -41,81 +49,42 @@
 			<tr>  
 			  <td><INPUT type=submit value="Log in"> </td> </tr>   
 			  <tr> 
-			  <td><P><strong>Members - Get your <a href = "signup"> login ID here</a></strong> </P></td>
+			  <td></td></tr>
 
                           </table></FORM>   
+    	                  <P style="font-size: 18px;"><strong>Members - Get your <a href = "signup"> login ID here</a></strong>
+                          <br><span style = "font-size: 13px"> (If you forget your credentials or otherwise have problems logging in click <a href="mailto:ruth@intersure.com?Subject=Website%20Login%20Issue" target="_blank">Email Intersure )</a></span>
+                          </P>
+    	                
     	                   
-    	              	   
+    	             <br style="line-height:245px;">
+    	           
     	          </div>
     	           
-    	          <p> </p>
+    	           
     	           
     	      </article><!-- /service -->
 
-    	      
+    	      <br style="line-height:68px;">
 
-    	      <article class="span3"><!-- service -->
-    	          <div class="picture">
-    	               
-    	                   
-    	              	   
-    	          	   
-    	          </div>
-    	           
-    	          <p> </p>
-    	           
-    	      </article><!-- /service -->
+    	       
 
     	  </div><!-- /services -->
 
-    	  <div class="row">
-    	      <div class="span12">
-    	          <div class="divide-line">
-    	              <div class="icon icons-scissors"></div>
-    	          </div>
-    	      </div>
-    	  </div>
+    	   
 
-    	  <div class="row">
-
-    	       
-    	       
-
-    	       
-
-    	  </div><!-- /row -->
+    	   
 
     	</div>
     </div> <!-- /container -->
  
-    <div class="dark-stripe">
-         
-    </div><!-- /dark-stripe -->
+    
 
-    <div class="container">
-
-        <div class="row"><!-- about us -->
-            <div class="span12">
-                <div class="lined">
-                     
-                    <span class="bolded-line"></span>
-                </div>
-                <div class="row">
-                     
-                    </div>
-                </div>
-            </div>
-        </div><!-- /about us -->
-
-         
-
-         
-
-    </div> <!-- /container -->
+    
 {% endblock main-content %}
-
+ </body>
  
  
-  </body>
+  
    
 </html>

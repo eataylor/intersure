@@ -1,0 +1,51 @@
+{% load weekday %}
+{% load humanize %} 
+
+<h1> Upcoming  Events</h1>
+
+<ul class="calendar-list">
+    {% for d, event in upcoming_events %}
+        {% with colors=event.get_colors %}
+            <li class="month-event" style="background:{{ colors.0 }}; color:{{ colors.1 }};">
+             <div class="container-fluid">
+              
+                <a href="register?id={{event.id}}" title="Enroll in this Event"> 
+                 
+                <div class="date-widget" style="vertical-align: bottom;">
+                    <div class="widget-month">
+                       <strong> {{ d|date:"F" }} </strong>
+                    </div>
+                    
+                    <div class="widget-day">
+                       <strong> {{ d.day|ordinal }}-{{event.end_date.day|ordinal}}</strong>
+                    </div>
+                    <div class="widget-year">
+                       <strong> {{event.end_date.year}}</strong>
+                    </div>
+                </div>
+                 
+                <div class="month-event-title" style="text-align:right;display: inline-block;vertical-align: top; float: right;">
+                         
+                        <p><strong>{{ event.title }}</strong></p>
+                         {% for loc in event.location.all%}
+                            {% if loc.name %}
+                             <p>{{loc.name}}</p>
+                            {% endif %}
+                          {% endfor %}   
+                        {% for c in event.cancellations.all %}
+                            {% if c.date == d.date %}
+                                (CANCELLED)
+                            {% endif %}
+                        {% endfor %}
+                         
+                     </a>
+                      
+                </div>
+            </div>
+            </li>
+        {% endwith %}
+    {% empty %}
+    Oops.. No events!
+    {% endfor %}
+</ul>
+

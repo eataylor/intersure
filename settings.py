@@ -46,7 +46,9 @@ INSTALLED_APPS = [
     'Isure',
     'tagging',
     'happenings',
-    'photo', 
+    'photo',
+    'django_wysiwyg',
+    #'tinymce',  
     #'photologue',
     #'sortedm2m',
 ]
@@ -97,7 +99,9 @@ DATABASES = {
         'PASSWORD': 'et8803et',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
+    },
+     
+
 }
 
 
@@ -125,7 +129,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'America/Los_Angeles'
+TIME_ZONE = 'America/Chicago'
 
 USE_I18N = True
 

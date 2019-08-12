@@ -2,11 +2,18 @@
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html class="js" > <!--<![endif]-->
   {% load static %}
   {% load quick_links %}
+
+  {% load wysiwyg %}
+
+   {% wysiwyg_setup %} 
+   
   {% block head %}
   <head>
+   
+
     <meta charset="utf-8">
     <title>Intersure | All Together. Different</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -91,6 +98,7 @@
 
     <!--  = Custom styles =  -->
     <link rel="stylesheet" href="static/stylesheets/main.css" />
+    <link rel="stylesheet" href="static/stylesheets/col.css" />
     <!--  = Revolution Slider =  -->
     <link rel="stylesheet" href="static/js/rs-plugin/css/settings.css" type="text/css" media="screen" />
    
@@ -124,10 +132,24 @@
     <!-- Fav icon 
     <link rel="shortcut icon" href="favicon.ico">
     -->
+
+    
+
+
+
   </head>
   {% endblock head %}
   {% block mainbody %}
   <body>
+<script>
+      $('#summernote').summernote({
+        placeholder: 'Hello stand alone ui',
+        tabsize: 2,
+        height: 100
+      });
+    </script>
+
+
   {% block header %}
     <header>
     	<div class="navbar navbar-inverse navbar-fixed-top">
@@ -171,9 +193,9 @@
                  
 
                   {% if active == 'home' %}
-    	             <li class="active"><a style="color:orange" href="/" onmouseover="this.style.color='white'"onmouseout="this.style.color='orange'">Home</a></li>
+    	             <li class="active"><a style="color:orange" href="/" onmouseover="this.style.color='white'" onmouseout="this.style.color='orange'">Home</a></li>
                   {% else %}
-                      <li ><a style="color:orange" href="/" onmouseover="this.style.color='white'"onmouseout="this.style.color='orange'">Home</a></li>
+                      <li ><a style="color:orange" href="/" onmouseover="this.style.color='white'" onmouseout="this.style.color='orange'">Home</a></li>
                   {% endif %}
                  <!--
                   {% if active == 'about' %}
@@ -189,13 +211,10 @@
                   {% endif %} 
 
                    <li class="dropdown" >
-    	          	<a style="color:orange" href="successstories" class="dropdown-toggle" onmouseover="this.style.color='white'" onmouseout="this.style.color='orange'">Success Stories</a>
+    	          	<a style="color:orange" href="successstories2"  onmouseover="this.style.color='white'" onmouseout="this.style.color='orange'">Success Stories</a>
     	          	<ul class="dropdown-menu">
+    	               {% get_quick_success %}
     	               
-    	              <li class="active"><a href="imasuccess" onmouseover="this.style.color='white'" onmouseout="this.style.color='orange'">IMA Financial Group</a></li> 
-    	              <li><a style="color:orange" href="kpdsuccess" onmouseover="this.style.color='white'" onmouseout="this.style.color='orange'">KPD Insurance</a></li>
-    	              <li><a style="color:orange" href="rogerssuccess" onmouseover="this.style.color='white'" onmouseout="this.style.color='orange'">Rogers Insurance</a></li>
-                      <li><a  style="color:orange" href="rossyergersuccess" onmouseover="this.style.color='white'" onmouseout="this.style.color='orange'">Ross & Yerger</a></li>
     	            </ul>
     	          </li> 
 
@@ -203,8 +222,10 @@
                   <li class="dropdown" ><a style="color:orange" href="directory" onmouseover="this.style.color='white'" onmouseout="this.style.color='orange'">Member Access</a>
                    <ul class="dropdown-menu">
                    <li ><a style="color:orange" href="directory" onmouseover="this.style.color='white'" onmouseout="this.style.color='orange'">Directory</a></li>
-                   <li ><a style="color:orange" href="search" onmouseover="this.style.color='white'" onmouseout="this.style.color='orange'">Search</a></li>
+                   <li ><a style="color:orange" href="search3" onmouseover="this.style.color='white'" onmouseout="this.style.color='orange'">Search</a></li>
                    <li ><a style="color:orange" href="https://launchpad.37signals.com/basecamp" target="_blank" onmouseover="this.style.color='white'" onmouseout="this.style.color='orange'">Basecamp</a></li>
+
+                    <li ><a style="color:orange" href="mutual" onmouseover="this.style.color='white'" onmouseout="this.style.color='orange'">Mutual Indemnification Templates</a></li>
                     
                     </ul>
                     </li>
@@ -223,10 +244,11 @@
     	          	<ul class="dropdown-menu">
                       
                        
-    	                <li class="active"><a style="color:orange" href="events" onmouseover="this.style.color='white'" onmouseout="this.style.color='orange'">Upcoming Events</a></li>
+    	                <li><a style="color:orange" href="events" onmouseover="this.style.color='white'" onmouseout="this.style.color='orange'">Upcoming Events</a></li>
                        
                         <li><a style="color:orange" href="blog" onmouseover="this.style.color='white'" onmouseout="this.style.color='orange'">Blog</a></li> 
                         <li><a style="color:orange" href="gallery" onmouseover="this.style.color='white'" onmouseout="this.style.color='orange'">Gallery</a></li> 
+                        <li><a style="color:orange" href="disclosures" onmouseover="this.style.color='white'" onmouseout="this.style.color='orange'">Disclosures</a></li> 
                      </ul>
     	          </li>   
                        
@@ -420,10 +442,13 @@ In short, we’re:<br style= "line-height:35px;">
 {% endblock main-content %}
 
 {% block foot %}
-    <div class="foot">
+    <div class="foot " >
+{% if request.user.username == 'edward' or request.user.username == 'ruth' %}
+   <a style="color:orange;font-size:10px" href="istats" onmouseover="this.style.color='white'" onmouseout="this.style.color='orange'">Stats</a>
+{% endif %}
     <center> <h3 style="color:orange; font-size:14px"> Intersure Partners - All Together. Different. Richmond, VA 23059  </h3> </center>  
-    </div><!-- /foot -->
-{% endblock foot %}
+    
+
 
 {% block footer %}
      
@@ -455,7 +480,13 @@ In short, we’re:<br style= "line-height:35px;">
     <!--  = Custom JS =  -->
     <!--  ==========  -->
     <script src="static/js/custom.js" type="text/javascript" charset="utf-8"></script>
+    
+    <script src="https://use.fontawesome.com/76e3e606a9.js"></script>
+
+
 {% endblock footer %}
+</div><!-- /foot -->
+{% endblock foot %}
   </body>
   {% endblock mainbody %}
 </html>

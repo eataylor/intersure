@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+
+<script>
+    $(document).ready(function() {
+        $('#summernote').summernote();
+    });
+  </script>
+
+
+{% load tagging_tags %}
+{% load quick_links %}
+
+ {% load wysiwyg %}
+ {% wysiwyg_setup %}
+ 
+{% block banner %}
+<br><br><br> 
+{% endblock banner %}
+  
+   
+{% block main-content %}
+    <div class="main-content">
+    	<div class="container">
+
+    	  <div class="row">
+
+    	      <article class="span7"><!--   -->
+    	          <div class="lined">
+                      <div class="post-entry">
+					 
+
+
+{% if msg %}
+<h2 style="color:orange"> {{ msg }} </h2>
+{% endif %}
+<form action="emailevent" method="post" enctype="multipart/form-data">{% csrf_token %}
+
+<div style="display: none;">
+ 
+</div>  
+<h2>Email Event Participants</h2><br>
+  <div class="form-group " >
+
+
+    <label for="subj">Subject</label>
+     <input type="text" class="form-control" id="subj" name="subj" placeholder="Subject "
+           {% if updatemode %} value = {{subj}} {% endif %}> 
+      
+
+      <label for="message">Message</label>
+      <textarea  id="message" name="message" style="width:300" rows="10" cols="80" >
+      {% if updatemode %} value = {{message}} {% endif %} </textarea>{% wysiwyg_editor "message" %} 
+      
+  </div>
+ <button type="submit" class="btn btn-primary">Send Email</button>
+</form>
+
+
+<br><br>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+ 
+
+                       
+    	          </div>
+    	           
+    	           
+    	      </article><!-- /our services -->
+
+    	      <article class="span3"><!-- service -->
+    	          <div class="picture">
+    	               
+    	                   
+    	              	   
+    	          </div>
+    	          <div>
+    	          	
+                      
+    	          	 
+    	          </div>
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	      <article class="span3"><!-- service -->
+    	           
+    	          <div>
+    	          	<h3 class="size-18"> </h3>
+                         
+                         
+                        
+    	          	 
+    	          </div>
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	      <article class="span3"><!-- service -->
+    	          <div class="picture">
+    	               
+    	                   
+    	              	   
+    	          	   
+    	          </div>
+    	           
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	  </div><!-- /services -->
+
+    	  
+
+    	  <div class="row">
+
+    	       
+    	       
+
+    	       
+
+    	  </div><!-- /row -->
+
+    	</div>
+    </div> <!-- /container -->
+ 
+    
+
+    <div class="container">
+
+        <div class="row"><!-- about us -->
+             
+        </div><!-- /about us -->
+
+         
+
+         
+
+    </div> <!-- /container -->
+{% endblock main-content %}
+  
+
+  </body>
+   
+</html>

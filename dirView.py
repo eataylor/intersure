@@ -9,8 +9,8 @@ from django.http import HttpRequest
    
 def dirView(request):
 
-    print "***	Enter dirView "
-    from Isure.models  import Directory 
+    print "***	Enter dirView1 "
+    from Isure.models  import Directory,KeyContact 
     print Directory
     from tagging.registry import register
     from tagging.registry import AlreadyRegistered
@@ -28,7 +28,10 @@ def dirView(request):
        if mem is not None and mem != '':
            
           thisMember = Directory.objects.get(id=int(mem))
-          return render_to_response('dirview.html', {'request':request,'thisMember':thisMember }, RequestContext(request)) 
+          thiskeycontact = KeyContact.objects.filter(agency = thisMember)
+          print "Length of key contacts is ",len(thiskeycontact) 
+          return render(request,'dirview.html', {'request':request,'thisMember':thisMember,'thiskeycontact':thiskeycontact } )
+          
            
            
     else:

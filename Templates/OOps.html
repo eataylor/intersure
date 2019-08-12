@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+{% load tagging_tags %}
+{% load quick_links %}
+ 
+{% block banner %}
+<br><br><br> 
+{% endblock banner %}
+  
+   
+{% block main-content %}
+    <div class="main-content">
+    	<div class="container">
+
+    	  <div class="row">
+
+    	      <article class="span7"><!--   -->
+    	          <div class="lined">
+                      <div class="post-entry">
+					 
+
+
+{% if msg %}
+<h2 style="color:orange"> {{ msg }} </h2>
+{% endif %}
+ 
+
+<div style="display: none;">
+ 
+</div>  
+<h2>OOps Something Went Wrong...</h2><br>
+    {% for item in errorlist %}
+        <p>{{item}}
+    {% endfor %}
+
+    
+    	           
+    	           
+    	      </article><!-- /our services -->
+
+    	      <article class="span3"><!-- service -->
+    	          <div class="picture">
+    	               
+    	                   
+    	              	   
+    	          </div>
+    	          <div>
+    	          	
+                      
+    	          	 
+    	          </div>
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	      <article class="span3"><!-- service -->
+    	           
+    	          <div>
+    	          	<h3 class="size-18"> </h3>
+                         
+                         
+                        
+    	          	 
+    	          </div>
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	      <article class="span3"><!-- service -->
+    	          <div class="picture">
+    	               
+    	                   
+    	              	   
+    	          	   
+    	          </div>
+    	           
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	  </div><!-- /services -->
+
+    	  
+
+    	  <div class="row">
+
+    	       
+    	       
+
+    	       
+
+    	  </div><!-- /row -->
+
+    	</div>
+    </div> <!-- /container -->
+ 
+    
+
+    <div class="container">
+
+        <div class="row"><!-- about us -->
+             
+        </div><!-- /about us -->
+
+         
+
+         
+
+    </div> <!-- /container -->
+{% endblock main-content %}
+
+
+  </body>
+   
+</html>

@@ -7,9 +7,9 @@
     {% for image,thumb in v %}
          {% if forloop.first %}
 
-           <a id="thumb1" href="{{thumb}}" class="highslide" onclick="return hs.expand(this, { slideshowGroup: {{forloop.parentloop.counter}} } )">
+           <a id="thumb1" href="{{thumb}}" class="highslide" onclick="return hs.expand(this, { slideshowGroup: {{forloop.parentloop.counter}} } )" >
 	   <img src="{{thumb}}" alt="Highslide JS" width="150px" height=150px
-		title="Click to enlarge" /> <strong>{{k}}    
+		title="Click to enlarge" /> <strong>{{k}}</strong></a>    
 
             
 

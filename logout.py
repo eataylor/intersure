@@ -21,4 +21,4 @@ def exit(request):
     print "\n\n\n***** Should be Logged out now" 
     print "\n\n\n"
     
-    return redirect(index,permanent=True)                      
+    return redirect(index)                      

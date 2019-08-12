@@ -1,0 +1,75 @@
+ 
+{% extends "base.html" %}
+{% load tagging_tags %}
+{% load showDisclosures %}
+{% load archives %}
+ 
+{% block banner %}
+<br><br><br> 
+{% endblock banner %}    
+{% block main-content %}
+    <div class="main-content">
+    	<div class="container">
+
+    	  <div class="row">
+
+    	      <article class="span7"><!--   -->
+    	          <div class="lined">
+
+
+
+
+
+                        {% get_form_1024 %}
+                         
+              
+    	               
+    	          </div>
+    	           
+    	           
+    	      </article><!-- /our services -->
+
+    	       
+
+    	      <article class="span3"><!-- service -->
+    	           
+    	          <div>
+    	          	<h3 class="size-18">Archives</h3>
+                        {% archive %}
+
+                        
+                        
+    	          	 
+    	          </div>
+    	           
+    	           
+    	      </article><!-- /service -->
+
+    	       
+    	  </div><!-- /services -->
+
+    	   
+
+    	   
+
+    	</div>
+    </div> <!-- /container -->
+ 
+ <br><br><br><br><br><br><br><br><br>    
+<div class="container">
+
+         
+
+         
+
+         
+
+    </div> <!-- /container -->
+     
+{% endblock main-content %}
+ 
+ 
+ 
+  </body>
+   
+</html>

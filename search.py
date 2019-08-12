@@ -88,7 +88,7 @@ def search(request):
                  print "*****CRM = ",crm                   
                  searchfilter['CRM__icontains'] = crm
               
-              results = Directory.objects.filter(**searchfilter)
+              results = Directory.objects.filter(**searchfilter).order_by('AgencyName')
               print "****length of list =",len(results)
               show_result = True
               for item in results:

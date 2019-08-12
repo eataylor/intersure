@@ -8,6 +8,7 @@ from wordpress_xmlrpc import Client, WordPressPost
 from wordpress_xmlrpc.methods.posts import GetPosts, NewPost
 from wordpress_xmlrpc.methods.users import GetUserInfo
 
+from Isure.models  import HotTopic
  
 
 import os
@@ -17,6 +18,8 @@ import os
 def testfiles(request):
     
     print "*******made it to testfiles"
+
+    """
 
     wp = Client('http://intersure.com/xmlrpc.php', 'taylorea@gmail.com', 'indigo9a')
     wp.call(GetPosts())
@@ -30,5 +33,25 @@ def testfiles(request):
                 print " \n****Found Arcive file '%s'  \n%s "  % (dirName,item)
      
      
+    """
+    #return render(request,'testfiles.html', { } )
+    thistopic = ''
 
-    return render(request,'testfiles.html', { } )                      
+    hottopic = HotTopic.objects.filter(publish = True).order_by('-postDate')[:1]
+    if len(hottopic) > 0:
+       thistopic = hottopic[0]
+    if thistopic:
+       print "****Found "
+    else:
+       print "*****Not found "  
+
+    return render(request,'indextest.html', {'thistopic':thistopic } ) 
+
+
+def testmain(request):   
+
+
+
+
+
+    return render(request,'testfiles.html', { } )                   

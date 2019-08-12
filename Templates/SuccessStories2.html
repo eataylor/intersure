@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load tagging_tags %}
+ 
+{% block banner %}
+<br><br><br> 
+{% endblock banner %}    
+{% block main-content %}
+    <div class="main-content">
+    	<div class="container">
+
+    	  <div class="row">
+
+    	      <article class="span6"><!--   -->
+    	          <div class="lined">
+    	                <h1>Success Stories</h1>
+<h3>[Because our partners tell it best]</h3>
+<p style="font-size:16px;">The results of our partners speak for themselves. Click the links below to learn more about how the All Together Different approach of Intersure has <strong>driven change in our member companies</strong>, impacting their bottom line and the long term health of their business.</p>
+<p style="font-size:16px;">For each of their stories, we share the challenge they faced, the strategy they took, and what results they reaped.</p>
+<p>&nbsp;</p>
+<br><br>
+<div class="container">
+<div class="row">
+  {% for item in stories %}  
+
+{% if  item.metric %} 
+   
+    {% if  forloop.first %}
+	<div>
+	 
+	</div>
+	{% else %}
+	 
+	<div style="float:left;" >
+	<img src="/static/Pics/Case-Study-Divider-Line-copy-17x300.jpg" alt="Case Study Divider Line copy" width="17" height="300" /> 
+	</div>
+	 
+
+    {% endif %}
+
+
+   <a href="/successstory2?story={{item.id}}"><div style="background-image: url(/static/Pics/Case-Buttom-160x300.jpg);float:right;width:155px;height:300px;background-repeat: no-repeat;float:left;" >
+<table style="width:100%;height:70%" align="bottom">
+<tr>
+<td valign="bottom" align="center">
+<div style = "margin: auto; ">
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="/static/{{item.agency.Image}}" 
+{% if item.agency.AgencyName == "Consolidated Insurance" %} 
+   width="140" height="85" 
+{% else %}
+   width="100" height="30" 
+{% endif %}
+align="left" >
+</div>
+</td>
+</tr>
+<tr>
+<td>
+
+<h2 style="color:orange;font-size:40px;margin: 0 0 5px 0;">{{item.measure}}</h2> 
+<p style="color:gray;font-size:22px;margin: 2px 0 0 0;">{{item.metric}}</p>
+
+</td>
+
+</tr>
+
+
+</table>
+
+
+
+</div> </a>
+ 
+  {% endif %}
+ 
+  {% endfor %}
+
+
+
+</div>
+
+</div>
+
+
+
+
+
+    	          </div>
+    	           
+    	           
+    	      </article><!-- /our services -->
+
+    	      <article class="span5"><!-- service -->
+    	          <div class="picture">
+    	              
+    	                   
+    	              	   
+    	          </div>
+    	           
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	      
+
+    	      <article class="span3"><!-- service -->
+    	          <div class="picture">
+    	               
+    	                   
+    	              	   
+    	          	   
+    	          </div>
+    	           
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	  </div><!-- /services -->
+
+    	  
+    	  
+
+    	</div>
+    </div> <!-- /container -->
+ 
+   
+
+     
+{% endblock main-content %}
+
+ 
+ 
+  </body>
+   
+</html>

@@ -2,6 +2,7 @@
 {% extends "base.html" %}
 {% load tagging_tags %}
 {% load archives %}
+{% load humanize %}
  
 {% block banner %}
 <br><br><br> 
@@ -12,7 +13,7 @@
 
     	  <div class="row">
 
-    	      <article class="span7"><!--   -->
+    	      <article class="span9"><!--   -->
     	          <div class="lined">
     	                 
  
@@ -24,17 +25,59 @@
 {% if msg %}
 <h2 style="color:orange">{{ msg }} </h2>
 {% endif %}
+
+<div style="width: 120%; display: table;">
+<div style="display: table-row">
+ 
+<div style="width: 100%; display: table-cell;">
 <h2>Directory Search Form</h2><br>
-<form action="search" method="post">{% csrf_token %}
+<form action="search2" method="post">{% csrf_token %}
   <div class="form-group " >
 
-     <table>
+     <table .table .table-responsive>
      <tr>
      <td style="width:225px"> Number of Principals - Enter a Range: </td>
      <td style="width:25px">Minimum: </td>
      <td style="width:45px"> <input type="text" name="prin_min" maxlength="3" size="3"  style="width: 30px;height:11px; border: none;border-bottom: 2px solid orange;"> </td>
      <td style="width:45px">Maximum: </td>
      <td style="width:45px"><input type="text" name="prin_max" maxlength="3" size="3"  style="width: 30px;height:11px; border: none;border-bottom: 2px solid orange;"> {{prin_max}}  </td> 
+     {% if show_result %}
+<td rowspan="6" style="width:75px"> </td>
+<td rowspan="6" style="width:450px" > <h2 style="text-align: center;">Search Results</h2> <br><h3 style="text-align: center;">(Click Agency for details)</h3>
+<table class="table table-striped" style="width:150%" align=right>
+<thead align="center">
+<tr align="center">
+<th>Agency</th>
+<th>Prin</th>
+<th>Empl</th>
+<th>Rev</th>
+<th>Comm %</th>
+<th>Bene %</th>
+<th> Pers %</th>
+<th align="center">CRM</th>
+<th>AMS</th>
+</tr>
+</thead>
+<tbody>
+{% for item in results %}
+<tr align="center">
+<td><a href="dirview?mem={{item.id}}"><div>{{item.AgencyName}}</div></a> </td>
+<td>{{item.principals}}</td>
+<td>{{item.employees}}</td>
+<td>${{item.Revenue|intcomma}}</td>
+<td> {{item.CommPct}}%</td>
+<td> {{item.BenePct}}%</td>
+<td> {{item.PersPct}}%</td>
+<td> {{item.CRM}}</td>
+<td> {{item.AMS}}</td>
+</tr>
+
+{% endfor %}
+</tbody>
+</table>
+
+</td>
+{% endif %}
      </tr>
      
      <tr>
@@ -64,7 +107,7 @@
      </tr>
         
        <tr>     
-            <td>&nbsp;&nbsp;Employee Benefits - Enter a range</td>
+            <td>&nbsp;&nbsp;Employee Benefits - Enter a range:</td>
             <td>Minimum: </td>
             <td><input type="text" name="bene_min" maxlength="5" size="5" style="width: 30px;height:11px; border: none;border-bottom: 2px solid orange;">{{bene_min}} </td> 
             <td>Maximum: </td>
@@ -72,7 +115,7 @@
         </tr>
           
          <tr>
-            <td>&nbsp;&nbsp;Personal  </td>
+            <td>&nbsp;&nbsp;Personal - Enter a range:  </td>
             <td>Minimum: </td>
              <td><input type="text" name="pers_min" maxlength="5" size="5" style="width: 30px;height:11px; border: none;border-bottom: 2px solid orange;">{{pers_min}} </td>
             <td>Maximum: </td>
@@ -89,15 +132,61 @@
      </tr>
 
      <tr>
-     <td>Select a AMS : </td>
+     <td>Select an AMS : </td>
       <td>{{form.ams}}</td>
      </tr>
+        
+     </table>   
+
+<table> 
+          
+      <tr><td><h3>Carrier Volume:</h3> </td></tr>
+
+     <tr>
+     <td>Select a Commercial Line : </td>
+      <td>{{form.commercials}}</td>
+      <td>Minimum: </td>
+            <td><input type="text" name="commvol_min" maxlength="5" size="5" style="width: 65px;height:11px; border: none;border-bottom: 2px solid orange;">{{commvol_min}} </td> 
+            <td>Maximum: </td>
+             <td><input type="text" name="commvol_max" maxlength="5" size="5" style="width: 65px;height:11px; border: none;border-bottom: 2px solid orange;">{{commvol_max}} </td>
+
+
+     </tr>
+
+     <tr>
+     <td>Select an Employee Benefits Line : </td>
+      <td>{{form.employees}}</td>
+      <td>Minimum: </td>
+            <td><input type="text" name="emplvol_min" maxlength="5" size="5" style="width: 65px;height:11px; border: none;border-bottom: 2px solid orange;">{{emplvol_min}} </td> 
+            <td>Maximum: </td>
+             <td><input type="text" name="emplvol_max" maxlength="5" size="5" style="width: 65px;height:11px; border: none;border-bottom: 2px solid orange;">{{emplvol_max}} </td>
+
+
+     </tr>
+
+      <tr>
+     <td>Select a Personals Line : </td>
+      <td>{{form.personals}}</td>
+      <td>Minimum: </td>
+            <td><input type="text" name="pervol_min" maxlength="5" size="5" style="width: 65px;height:11px; border: none;border-bottom: 2px solid orange;">{{pervol_min}} </td> 
+            <td>Maximum: </td>
+             <td><input type="text" name="pervol_max" maxlength="5" size="5" style="width: 65px;height:11px; border: none;border-bottom: 2px solid orange;">{{pervol_max}} </td>
+
+
+     </tr>
+
+      
         
      </table>    
 
 
  <button type="submit" class="btn btn-primary">Search</button>
 </form>
+</div> <!--Left Div -->
+
+
+</div>
+</div>
 
     	          </div>
     	           

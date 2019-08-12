@@ -37,7 +37,7 @@ def blog(request):
          
 	theseposts = ''
 
-    	client = Client('http://intersure.tmcmarkets.com/xmlrpc.php', 'taylorea@gmail.com', 'indigo9a')
+    	client = Client('http://intersure.tmcmarkets.com/xmlrpc.php', 'taylorea@gmail.com', ')EqaMeyrTSbnosef')
 
 
 	theseposts = client.call(posts.GetPosts({'post_status': 'publish'}))

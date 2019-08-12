@@ -41,7 +41,9 @@ def directory(request):
 		  print "these items = ",theseItems, len(theseItems)
 	    else:
 	       theseItems = Directory.objects.all().order_by('AgencyName')
-	    return render_to_response('directory.html', {'theseItems':theseItems,'thisname':thisname,'active':active,'request':request }, RequestContext(request))
+	    #return render_to_response('directory.html', {'theseItems':theseItems,'thisname':thisname,'active':active,'request':request }, RequestContext(request))
+	    return render(request,'directory.html', {'theseItems':theseItems,'thisname':thisname,'active':active } )
+	     
 
      else:
 

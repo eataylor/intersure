@@ -5,6 +5,8 @@ from django.http import HttpResponse
 from django.http import HttpRequest
 
 from photo.models  import Album,Image
+
+from Isure.models  import SuccessStory 
  
 # Create your views here.
 
@@ -22,6 +24,21 @@ def handler404(request):
     response.status_code = 404
     return response
 
+def OOps(request):
+
+    print "Enter OOps "
+    errorlist = ''
+    errormsg2 = ''
+    if 'errorlist' in request.session: 
+        print "****Found errlist ***"
+        errorlist = request.session['errorlist']
+        del request.session['errorlist']
+     
+     
+     
+     
+    return render_to_response('OOps.html',  RequestContext(request,{'errorlist':errorlist, }))
+
     
     
 def index(request):
@@ -35,7 +52,8 @@ def index(request):
     from tagging.models import Tag
     print "**** Active = ",active 
      
-    return render_to_response('index.html', {'active':active }, RequestContext(request))
+    #return render_to_response('index.html', {'active':active }, RequestContext(request))
+    return render(request, "index.html", {'active':active})
 
 def about(request):
 
@@ -95,7 +113,7 @@ def contact(request):
           this_content.to.append("ruth@intersure.com")
           mailit(active,this_content)
           print "****Mail should have been sent now ****" 
-          msg = "Your Email is on it's way to Intersure"
+          msg = "Your Email is on its way to Intersure"
           
           
        else:
@@ -111,6 +129,21 @@ def contact(request):
     #return render_to_response('contact.html', {'active':active }, RequestContext(request))
     #return render_to_response('contact.html',  RequestContext(request,{'active':active }))
     return render(request, "contact.html", {'form':form,'active':active,'name':name,'email':email,'subj':subj,'msg':msg,'updatemode':updatemode})
+
+def disclosures(request):
+
+    print "Enter disclosures "
+   
+     
+    return render(request, "disclosures.html", {})
+
+def disclosure990(request):
+
+    print "Enter disclosure990 "
+   
+     
+    return render(request, "disclosure990.html", {})
+    
 
 
 def eventnews(request):
@@ -133,7 +166,8 @@ def events(request):
      
      
      
-    return render_to_response('events.html', {'active':active }, RequestContext(request))
+    #return render_to_response('events.html', {'active':active }, RequestContext(request))
+    return render(request, "events1.html", {'active':active})
 
 
 
@@ -152,7 +186,30 @@ def gallery(request):
      
      
      
-    return render_to_response('gallery.html', {'active':active }, RequestContext(request))
+    #return render_to_response('gallery.html', {'active':active }, RequestContext(request))
+    return render(request, "gallery.html", {'active':active})
+    
+    
+    
+def IEtest(request):
+
+    print "Enter IEtest "
+    active = ""
+   
+     
+       
+       
+     
+     
+     
+    #return render_to_response('join1.html', {'active':active }, RequestContext(request))
+    return render(request, "join1.html", {'active':active})
+    
+    
+   
+    
+    
+    
 
 def hightest(request):
 
@@ -176,7 +233,8 @@ def IMASuccess(request):
      
      
      
-    return render_to_response('IMASuccess.html', { }, RequestContext(request))
+    #return render_to_response('IMASuccess.html', { }, RequestContext(request))
+    return render(request, "IMASuccess.html", {})
 
 def join(request):
 
@@ -219,7 +277,7 @@ def join(request):
           this_content.to.append("ruth@intersure.com")
           mailit(active,this_content)
           print "****Mail should have been sent now ****" 
-          msg = "Your Email is on it's way to Intersure"
+          msg = "Your Email is on its way to Intersure"
           
           
        else:
@@ -247,7 +305,8 @@ def KPDSuccess(request):
      
      
      
-    return render_to_response('KPDSuccess.html', { }, RequestContext(request))
+    #return render_to_response('KPDSuccess.html', { }, RequestContext(request))
+    return render(request, "KPDSuccess.html", {})
 
 def partners(request):
     from geopy.geocoders import Nominatim
@@ -269,7 +328,7 @@ def partners(request):
        #thisplace = item.HQAddress+' '+ item.HQCity 
        #print "***** this place = ",thisplace 
        #location = geolocator.geocode(thisplace)
-       g = geocoder.google(item.HQAddress+' '+ item.HQCity)
+       g = geocoder.google(item.HQAddress+' '+ item.HQCity,key='AIzaSyDP7mVHF9SO6tI4aDbrRPClqDNqUbgtcuI')
        if g.lat != None:
           item.HQLat= g.lat
           item.HQLong= g.lng
@@ -285,7 +344,8 @@ def partners(request):
      
     for item in latlongs:
        print item.lat,item.lng 
-    return render_to_response('partners2.html', {'active':active }, RequestContext(request))
+    return render(request,'partners2.html', {'active':active }, )
+    
 
 
 def partnerstest(request):
@@ -334,7 +394,21 @@ def SuccessStories(request):
      
      
      
-    return render_to_response('SuccessStories1.html', { }, RequestContext(request))
+    #return render_to_response('SuccessStories1.html', { }, RequestContext(request))
+    return render(request, "SuccessStories1.html", {})
+    
+
+def SuccessStories2(request):
+
+    print "Enter Success Stories "
+    stories = ''
+
+    stories = SuccessStory.objects.filter(publish = True).order_by('-postDate')[:6]
+     
+     
+     
+     
+    return render(request, "SuccessStories2.html", {'stories':stories})
 
 
 
@@ -344,7 +418,8 @@ def RogersSuccess(request):
      
      
      
-    return render_to_response('RogersSuccess.html', { }, RequestContext(request))
+    #return render_to_response('RogersSuccess.html', { }, RequestContext(request))
+    return render(request, "RogersSuccess.html", {})
 
 def RossYergerSuccess(request):
 
@@ -352,6 +427,7 @@ def RossYergerSuccess(request):
      
      
      
-    return render_to_response('RossYergerSuccess.html', { }, RequestContext(request))
+    #return render_to_response('RossYergerSuccess.html', { }, RequestContext(request))
+    return render(request, "RossYergerSuccess.html", {})
             
 

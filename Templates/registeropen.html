@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+{% load tagging_tags %}
+{% load happenings_tags %}
+{% load quick_links %}
+{% load tz %}
+
+{% block banner %}
+<br><br><br> 
+{% endblock banner %}   
+   
+{% block main-content %}
+  
+    	 
+   
+<div class="container">
+  
+  <p>Welcome, {{ user.get_username }}</p>
+   
+   {% if event.Open or user.get_username == "edward" %}
+   {% if registered %}
+        {% if newAttendee %}
+   <h1 style="color:orange">You have successfully registered for the upcoming Intersure {{event.title}}  </h1>
+    	             
+        {% else %}
+          <h1 style="color:orange">You are already registered for the upcoming Intersure {{event.title}}  </h1>
+    	             
+
+        {% endif %}
+   {% else %}
+    <h1 style="color:orange">Signup for the Upcoming Intersure {{event.title}} </h1>
+    	             
+
+   {% endif %}
+   <h1 style="color:orange"><strong>{{event.description|safe}} </h1>
+      <br style="line-height:38px;">
+   {% else %}
+      <h1 style="color:orange">This Event, {{event.title}}, is Not open for Registration as Yet </h1>
+   {% endif %}
+
+    <div class="row">
+        <div class="col-xs-4">
+           <br style="line-height:20px;">
+           <div class="cc-block" style="background: #eeeeee;
+	border: 1px solid #9eb4ba;font-family: 'Helvetica', Times, serif;">
+        <h3 id="event_dateTime" style="font-family: 'Helvetica';">When</h3>
+        <span id="span_event_dateTime_full_multiline"><p style = "color:#6698FF">{{event.start_date |date:"N j, Y, P e"|capfirst}}<br />-to-<br />{{event.end_date|date:"N j, Y, P"|capfirst}}</span>
+        <br /></p>
+  <!--
+        <a id="lnkAddToCalendar" class="cc-calendar" href="/register/addtocalendar?oeidk=a07ednet022534e5038" title="Add to Calendar">Add to Calendar</a>
+  -->
+
+
+        <br><br>
+
+        <h3 id="event_location" style="font-family: 'Helvetica';"><strong>Where</strong></h3>
+        <p style="color:#6698FF"><strong>{{this_loc.name}}</strong>
+        <br> {{this_loc.address_line_1}} 
+        {% if this_loc.address_line_2 %}
+           <br>{{this_loc.address_line_2}}
+        {% endif %}
+        <br>{{this_loc.city}}, {{this_loc.state}} {{this_loc.zip}}<br>
+        <div  >
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img id="map" src="https://api.tiles.virtualearth.net/api/GetMap.ashx?ppl=24,,{{Geo.lat}},{{Geo.lng}}&z=12&h=200&w=200" alt="Event Address Map" style="border:1px solid black"/>
+        </div>
+
+
+        <br><br>
+
+        <h3 id="event_contact" style="font-family: 'Helvetica';">Contact</h3>
+        <p style="color:#6698FF"><strong>Ruth Manka</strong><br> 
+        Intersure Partners<br>
+           804-819-9293<br>
+           ruth@intersure.com
+        </p>
+
+       {% if request.user.username == 'ruth' or request.user.username == 'edward' %}
+       <h3 id="event_contact" style="font-family: 'Helvetica', Times, serif;">Ruth's Stuff:</h3>
+
+       <h3 id="event_contact" style="font-family: 'Times New Roman', Times, serif;font-style: oblique;">
+       <a style="color:black;font-size:12px" href="showregistrants?id={{this_event}}" onmouseover="this.style.color='orange'" onmouseout="this.style.color='orange'">    List/Update Registrants</a></h3>
+       
+       <h3 id="event_contact" style="font-family: 'Times New Roman', Times, serif;font-style: oblique;">
+       <a style="color:black;font-size:12px" href="csvdown?id={{this_event}}" onmouseover="this.style.color='orange'" onmouseout="this.style.color='orange'">    Download Registrants</a></h3>
+
+
+       {% endif %}
+
+    </div>
+        </div>
+
+      {% if event.Open or user.get_username == "edward" %}
+        <div class="col-xs-6">
+            <div id="cc-content" class="cc-panel">
+                        <div id="evm-rcol-container" class="evm-rcol-regrmc">
+                      <h1 style="font-family: 'Helvetica'; color:orange;">  Intersure {{event.start_date|date:"Y"}} {{event.title}} </h1>
+                        
+                          
+                        
+                       <div style = "background: linear-gradient(to top, #ffffcc 0%, #ffcccc 100%);width: 52%;">
+                       {% if event.agenda_link %}
+                        <h1> <a href="{{event.agenda_link}}" target="_blank">Click Here to View the Agenda</a></h1> 
+                        {% else %}
+                        <h1> Agenda to be posted soon </h1>
+                        {% endif %}
+ 
+
+                       </div>  
+                        
+                      
+                      <br>
+
+                    {% if viewtype == 0 %}
+
+                       <div>
+                           <form action="registeropen" method="post">{% csrf_token %}
+                      <h2 style="font-family: 'Helvetica'; color:orange;"> Enter email address for this Event</h2>
+                      <input type="hidden" name="enrolleetype" value="{{this_enrollee.enrolleetype}}">
+                      <input type="hidden" name="viewtype" value="{{viewtype}}">
+                      <label for="youremail">
+{% if form.youremail.errors %}  <SPAN class=error><font color=#FF0000><strong>Your Email(is Required)</strong></font></SPAN>
+     {% else %}<strong>Your email(Required)</strong> {% endif %}
+   </label>
+
+
+       
+    <input type="email"  class="form-control" style="width: 610px;"  id="youremail" name="youremail" aria-describedby="emailHelp" placeholder="Enter email"
+
+
+
+     {% if form.youremail.errors %}  <SPAN class=error><font color=#FF0000><strong>Enter a valid Email Address</strong></font></SPAN>
+     {% else %}  {% endif %}
+     {% if updatemode %} value =  {{this_enrollee.email}} {% endif %}  
+    <small id="emailHelp" class="form-text text-muted"> </small>
+    <center><button type="submit" class="btn btn-primary">Register</button></center>
+     </form>
+
+
+                       </div> 
+                 
+
+                    {% else %}  
+                      <div>
+                      
+                      <form action="registeropen" method="post">{% csrf_token %}
+                      <h2 style="font-family: 'Helvetica'; color:orange;"> Event Attendee Info</h2>
+                      <input type="hidden" name="enrolleetype" value="{{this_enrollee.enrolleetype}}">
+                      <input type="hidden" name="viewtype" value="{{viewtype}}">
+
+<div style="display: none;">
+ 
+</div>  
+<h2></h2><br>
+  <div class="form-group " >
+
+     
+   <fieldset>
+   <legend style="color:#6698FF; "><strong>Personal Information:</strong></legend>
+     <label for="firstname" style="display:block;">
+{% if form.firstname.errors %}  <SPAN class=error><font color=#FF0000><strong>*First Name(Required)</strong></font></SPAN>
+     {% else %}<strong><span >First Name(Required)</span></strong> {% endif %}
+   </label>
+     <input type="text"  class="form-control" style="width: 610px;display:block;" id="firstname" name="firstname"placeholder="Enter Your first name"
+      {% if updatemode %} value = {{this_enrollee.firstname}} {% endif %} value = {{this_enrollee.firstname}}  ></textarea>
+
+<label for="lastname">
+{% if form.lastname.errors %}  <SPAN class=error><font color=#FF0000><strong>*Last Name(Required)</strong></font></SPAN>
+     {% else %}<strong>Last Name(Required)</strong> {% endif %}
+   </label>
+     <input type="text" class="form-control"  style="width: 610px;" id="lastname" name="lastname"placeholder="Enter Your last name"
+      {% if updatemode %} value = {{lastname}} {% endif %} value = {{this_enrollee.lastname}}></textarea>
+
+
+   <label for="youremail">
+{% if form.youremail.errors %}  <SPAN class=error><font color=#FF0000><strong>Your Email(is Required)</strong></font></SPAN>
+     {% else %}<strong>Your email(Required)</strong> {% endif %}
+   </label>
+
+
+       
+    <input type="email" readonly="readonly" class="form-control" style="width: 610px;"  id="youremail" name="youremail" aria-describedby="emailHelp" placeholder="Enter email"
+
+
+
+     {% if form.cellphone.errors %}  <SPAN class=error><font color=#FF0000><strong>Invalid Phone Number</strong></font></SPAN>
+     {% else %}  {% endif %}
+     {% if updatemode %} value =  {{this_enrollee.email}} {% endif %} value = {{this_enrollee.email}}>
+    <small id="emailHelp" class="form-text text-muted"> </small>
+
+    <label for="cellphone"><strong>Cell Phone:</strong></label>
+     <input type="text" class="form-control" id="cellphone"  style="width: 610px;"  name="cellphone" placeholder="Cell Phone "
+           {% if updatemode %} value = {{this_enrollee.cellphone}} {% endif %} value = {{this_enrollee.cellphone}}  ></textarea>
+
+     <div class="" style="width: 200px;">
+
+      <label for="badgename"><strong>Badge Name:</strong></label>
+      <input type="text" class="form-control"  style="width: 610px;" id="badgename" name="badgename" style="width:610" 
+      {% if updatemode %} value = "{{this_enrollee.badgename}}" {% endif %} value = "{{this_enrollee.badgename}}"></textarea>
+   </fieldset>
+     </div>
+  </div>
+
+
+<div class="form-group " >
+
+     
+   <fieldset>
+   <legend style="color:#6698FF"><strong>Business Information:</strong></legend>
+     <label for="companyname">
+{% if form.businessname.errors %}  <SPAN class=error><font color=#6698FF><strong>Company Name(Required)</strong></font></SPAN>
+     {% else %}<b>Company Name(Required)</b> {% endif %}
+   </label>
+     <input type="text" 
+            {% if this_enrollee.enrolleetype == "1" %}
+               readonly="readonly"
+            {% endif %} 
+          class="form-control"  style="width: 610px;" id="agencyname" name="agencyname" placeholder="Your Agency name"
+      {% if updatemode %} value = "{{this_enrollee.agencyname}}" {% endif %} value = "{{this_enrollee.agencyname}}" maxlength="50" size="75"></textarea>
+
+<label for="yourtitle">
+{% if form.title.errors %}  <SPAN class=error><font color=#FF0000><strong>Your Title</strong></font></SPAN>
+     {% else %}<strong>Your Title</strong> {% endif %}
+   </label>
+     <input type="text" 
+      {% if this_enrollee.enrolleetype == "1" %}
+      readonly="readonly"
+      {% endif %}
+       class="form-control" style="width: 610px;"  id="yourtitle" name="yourtitle"placeholder="Enter Your Title"
+      {% if updatemode %} value = "{{this_enrollee.title}}" {% endif %} value = "{{this_enrollee.title}}"></textarea>
+
+
+   
+   </fieldset>
+     </div>
+  </div>
+
+
+
+
+
+
+ 
+   
+    <fieldset>
+     <legend style="color:#6698FF"><strong>Material Preferences:</strong></legend>
+    
+        
+            <h3 id="id_single_select_label_custom11">Please indicate if you plan to bring your laptop or tablet as all meeting materials will be available electronically.</h3>
+
+               
+      <div class="btn-group">
+            <ul style="list-style: none;">
+              <li> <label><input type="radio" name="device" value="0" id="device" {% if this_enrollee.devices == "0" %} checked  {% endif %}>Yes, electronic materials work best.</label>  </li>
+               <br>
+              <li><label><input type="radio" name="device" value="1" id="device"  
+               {% if this_enrollee.devices == "1" %} checked  {% endif %} >Yes, but I would prefer to also have printed materials.</label></li> 
+              <br>  
+             <li><label><input type="radio" name="device" value="2" id="device"   
+              {% if this_enrollee.devices == "2" %}checked  {% endif %}/> No, I will need printed materials.</label></li>
+            </ul>
+
+
+           </ul>
+      </div>
+
+   </fieldset>  
+
+         <fieldset>
+           <legend style="color:#6698FF"><strong>Meal Information:</strong></legend>
+           
+      {% if event.meal1_date %}
+
+           <h3 id="id_single_select_label_custom11">Please Indicate If You Will Attend The {{event.meal1_title}}  On 
+           {% if event.meal1_date %}
+           {{event.meal1_date}} 
+           {% else %}
+           (TBD)
+           {% endif %}
+           </h3>
+
+               
+      <div class="btn-group">
+            <ul style="list-style: none;">
+              <li> <label><input type="radio" name="meals" value="1" id="meals" {% if registered and  this_enrollee.meals   %}checked  {% endif %}>Yes</label>  </li>
+               <br>
+              <li><label><input type="radio" name="meals" value="0" id="meals" {% if registered and  not this_enrollee.meals   %}checked  {% endif %}   >No</label></li> 
+              
+            </ul>
+
+
+            
+      </div>
+      {% endif %}
+
+      {% if event.meal2_date %}
+      
+      <h3 id="id_single_select_label_custom11">Please Indicate If You Will Attend The {{event.meal2_title}} On 
+      {% if event.meal2_date %}
+      {{event.meal2_date}}
+      {% else %}
+      (TBD)
+     
+      {% endif %}
+      </h3>
+      <div class="btn-group">
+            <ul style="list-style: none;">
+              <li> <label><input type="radio" name="meals2" value="1" id="meals2" {% if registered and this_enrollee.meals2 %}checked  {% endif %}>Yes</label>  </li>
+               <br>
+              <li><label><input type="radio" name="meals2" value="0" id="meals2" {% if registered and not this_enrollee.meals2 %}checked  {% endif %}   >No</label></li> 
+              
+            </ul>
+
+
+            
+      </div>
+
+      {% endif %}
+
+      <h2 id="section-custom2"></h2>
+
+
+
+           <h3 id="id_single_select_label_custom11">Please indicate if you have any special dietary needs.</h3>
+              <input type="text" class="form-control"  style="width: 300px;" id="specialneeds" name="specialneeds" style="width:300" placeholder="Special Diet" 
+      {% if updatemode %} value = "{{specialneeds}}" {% endif %}></textarea>
+
+       </fieldset> 
+
+       <fieldset> 
+
+      <legend style="color:#6698FF"><strong> Guest Information:</strong></legend>      
+       
+       
+
+
+
+           <h3 id="id_single_select_label_custom11">You may add a maximum of one guest.</h3>
+              <a id="new-board-btn" class="btn btn-success" onclick="showGuest()" >Add Guest</a>
+
+        <div id=guestbox1 style="display:none">
+         <p>You may add a maximum of 1 </p>
+
+          <label for="guest_firstname"><strong>Guest FirstName</strong>  </label>
+     <input type="text"   class="form-control"  style="width: 300px;" id="guest_firstname" name="guest_firstname"placeholder="Enter Guest first name"
+      {% if updatemode %} value = {{this_enrollee.guest_firstname}} {% endif %}value = "{{this_enrollee.guest_firstname}}" maxlength="50" size="75"></textarea>
+
+         <label for="guest_lastname"><strong>Guest LastName</strong>  </label>
+     <input type="text"   class="form-control"  style="width: 300px;" id="guest_lastname" name="guest_lastname"placeholder="Enter Guest last name"
+      {% if updatemode %} value = {{this_enrollee.guest_lastname}} {% endif %}value = "{{this_enrollee.guest_lastname}}" maxlength="50" size="75"></textarea>
+         <br>
+    
+      {% if event.meal1_date %}
+
+         <h3 id="id_single_select_label_custom11">Please Indicate If Your Guest Will Attend The {{event.meal1_title}} On
+         {% if event.meal1_date %}
+           {{event.meal1_date}} 
+           {% else %}
+           (TBD)
+           {% endif %}
+
+         </h3>
+
+               
+      <div class="btn-group">
+            <ul style="list-style: none;">
+              <li> <label><input type="radio" name="guestmeals1" value="1" id="guestmeals1" {% if registered and this_enrollee.guestmeals1 %}checked  {% endif %}>Yes</label>  </li>
+               <br>
+              <li><label><input type="radio" name="guestmeals1" value="0" id="guestmeals1" {% if registered and not this_enrollee.guestmeals1 %}checked  {% endif %}   >No</label></li> 
+              
+            </ul>
+        </div>
+      {% endif %}
+
+      {% if event.meal2_date %}
+
+  <h3 id="id_single_select_label_custom11">Please Indicate If Your Guest Will Attend The {{event.meal2_title}} On
+
+  {% if event.meal2_date %}
+      {{event.meal2_date}}
+      {% else %}
+      (TBD)
+     
+      {% endif %}  
+
+   </h3>
+
+
+        <div class="btn-group">
+            <ul style="list-style: none;">
+              <li> <label><input type="radio" name="guestmeals2" value="1" id="guestmeals2" {% if registered and this_enrollee.guestmeals2 %}checked  {% endif %}>Yes</label>  </li>
+               <br>
+              <li><label><input type="radio" name="guestmeals2" value="0" id="guestmeals2" {% if registered and not this_enrollee.guestmeals2 %}checked  {% endif %}   >No</label></li> 
+              
+            </ul>
+        </div>
+      {% endif %}
+
+      {% if event.meal2_date or event.meal1_date %}
+
+       <h3 id="id_single_select_label_custom11">Please indicate if your Guest has any special dietary needs.</h3>
+              <input type="text" class="form-control"  style="width: 610px;" id="guestspecialneeds" name="guestspecialneeds" style="width:300" placeholder="GuestSpecial Diet" 
+        value = {{this_enrollee.guest_specialneeds}} ></textarea>
+
+      {% endif %}
+
+
+         <a id="new-board-btn" class="btn btn-success" onclick="hideGuest()" >hide Guest</a>
+        </div >
+        
+               
+
+            
+      </div>
+     </fieldset>
+
+{% if registered %}
+ <center><button type="submit" class="btn btn-primary">Update Registration</button></center>
+{% else%}
+ <center><button type="submit" class="btn btn-primary">Register for Event</button></center>
+{% endif %}
+</form>
+
+{% endif %}
+{% else %}
+ 
+
+{% endif %}
+                       </div>
+        </div>
+    </div>
+</div>
+
+ <script>
+function hideGuest() {
+    document.getElementById("guestbox1").style.display = "none";
+    document.getElementById("new-board-btn").style.display = "block";
+}
+
+ 
+
+function showGuest() {
+    document.getElementById("guestbox1").style.display = "block";
+    document.getElementById("new-board-btn").style.display = "none";
+     
+}
+</script>
+
+
+
+
+ 
+{% endblock main-content %}
+ 
+
+
+  

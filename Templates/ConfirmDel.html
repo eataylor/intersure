@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+{% load showDisclosures %}
+{% load tagging_tags %}
+{% load quick_links %}
+
+ 
+{% block banner %}
+<br><br><br> 
+{% endblock banner %}   
+   
+{% block main-content %}
+    <div class="main-content">
+    	<div class="container">
+
+    	  <div class="row">
+
+    	      <article class="span7"><!--   -->
+    	          <div class="lined">
+
+ 
+                       
+
+    	              <h1 class="entry-title post-title"></h1>
+
+      
+
+
+				<div class="post-entry">
+
+
+<h2>Confirm That you want to Delete the following:</h2>
+                                         <table>
+
+                                         {% for item in stories %}
+                                         <tr><td><strong><a href="/successstory2?story={{item.id}}">{{item.AgencyName}}</a></strong></td></tr>
+                                         {% endfor %}
+                                         </table>
+					 
+ 
+<p> </p>
+ 
+ 
+
+				<div class="post-entry">
+					
+                                          
+ 
+ 
+									</div>
+				<!-- end of .post-entry -->
+ 
+
+ 
+
+                      </p>
+    	               
+    	          </div>
+    	           
+    	           
+    	      </article><!-- /our services -->
+
+    	       
+
+    	       
+
+    	      <article class="span3"><!-- service -->
+    	          <div class="picture">
+    	               
+    	                   
+    	              	   
+    	          </div>
+    	          <div>
+                    <!--
+    	          	
+                     <a href="https://launchpad.37signals.com/basecamp" target="_blank">   <img src="/static/Pics/Members-Only-Basecamp-copy.jpg" alt="" width="215" height="137" /> </a>
+    	          	<span class="bolded-line"></span>
+                    -->
+    	          </div>
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	      <article class="span3"><!-- service -->
+    	           
+    	          <div>
+    	          	<h3 class="size-18">Quick Links</h3>
+                        {% get_quick_rels %} 
+                        {% get_quick_links %}
+                         
+                        
+    	          	<span class="bolded-line"></span>
+    	          </div>
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	  </div><!-- /services -->
+
+    	  
+
+    	       
+    	       
+
+    	       
+
+    	  </div><!-- /row -->
+
+    	</div>
+    </div> <!-- /container -->
+ 
+    
+
+    <div class="container">
+
+         
+
+         
+
+         
+
+    </div> <!-- /container -->
+{% endblock main-content %}
+
+
+  </body>
+   
+</html>

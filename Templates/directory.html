@@ -18,14 +18,14 @@
     	      <article class="span4"><!--   -->
     	          <div class="lined">
     	              <h2> <span class="light">Click on a Specialty below to see agencies that provide those services</span></h2>  
-                      <h2>or <a href="search"><button type="button" class="btn btn-info btn-xs">Click here for more Search options</button></a></h2>
+                      <h2>or <a href="search3"><button type="button" class="btn btn-info btn-xs">Click here for more Search options</button></a></h2>
                       
                       {% tag_cloud_for_model Isure.Directory as dtags with steps=8  distribution=log %}
                       <br> 
                       {% for item in dtags %}
 
                            
-                            <a href="/directory?spec={{item.id}}"><span style="font-size:2{{item.font_size}}px;color:orange;">{{item.name}}   </span></a>   
+                            <a href="/directory?spec={{item.id}}"><span style="font-size:2{{item.font_size}}px;color:orange;">{{item.name}}<br>  </span></a>   
 
                       {% endfor %} 
                           

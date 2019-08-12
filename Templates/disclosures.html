@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+{% load tagging_tags %}
+{% load quick_links %}
+{% load showDisclosures %}
+ 
+{% block banner %}
+<br><br><br> 
+{% endblock banner %}   
+   
+{% block main-content %}
+    <div class="main-content">
+    	<div class="container">
+
+    	  <div class="row">
+
+    	      <article class="span7"><!--   -->
+    	          
+                       
+
+    	              <h1 class="entry-title post-title"></h1>
+
+
+				 
+					 
+ 
+ 
+ 
+
+
+				<div class="post-entry">
+					<h1>Required Federal Disclosure Documents:</h1>
+
+<h2>IRS Form 990 Documents</h2>
+
+{% get_form_990 %}
+ 
+<br style="line-height:20px;"> 
+
+<h2>IRS Form 1024 Documents</h2>
+
+{% get_form_1024 %}
+ 
+  
+
+ 
+				</div>
+				<!-- end of .post-entry -->
+ 
+
+ 
+
+                       
+    	               
+    	           
+    	           
+    	           
+    	      </article><!-- /our services -->
+
+    	       
+
+    	       
+
+    	      
+
+    	  </div><!-- /services -->
+
+    	  
+
+    	       
+    	       
+
+    	       
+
+    	  </div><!-- /row -->
+
+    	 
+    </div> <!-- /container -->
+ 
+  <br style="line-height:175%;">   
+
+     
+{% endblock main-content %}
+
+ 
+  
+   
+

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load tagging_tags %}
+{% load archives %}
+{% load humanize %}
+ 
+{% block banner %}
+<br><br><br> 
+{% endblock banner %}    
+{% block main-content %}
+    <div class="main-content">
+    	<div class="container">
+
+    	  <div class="row">
+
+    	      <article class="span9"><!--   -->
+    	          <div class="lined">
+  
+ 
+
+
+ 
+<div class="container">
+   <div class="row">
+     <div class="col">
+ <h2 style="text-align: center;">{{event.title}} Event -- {{event.start_date|date:"D d M Y"}}</h2> 
+ <h3 style="text-align: center;">Show/Update Event Registrant Information</h3>
+    
+
+<table align=center class="table table-striped">
+<tr>
+   <th align=center>Name</th>
+   <th style="text-align: center;">Phone</th>
+   <th style="text-align: center;">Email</th>
+   <th style="text-align: center;">Badge Name</th>
+   <th style="text-align: center;">Materials</th>
+   <th style="text-align: center;">Meals</th>
+   <th style="text-align: center;">Guest Name</th>
+   <th style="text-align: center;">Guest Meal1</th>
+   <th>Guest Meal2</th>
+    
+ </tr>
+
+<form action="showregistrants?id={{ event.id}}"method=post>{% csrf_token %}
+{% for item in attendees %}
+<tr  >
+<td align=center style="width:130px">
+{{item.first_name }} {{item.last_name }} 
+  
+</td>
+<td align=centerstyle="width:100px">
+    {{item.cellPhone}}   
+</td>
+<td align=center style="width:120px">
+   {{item.email }}
+     
+</td>
+
+<td align=center style="width:120px">
+   <input type="text" class="form-control " id="badgename-{{item.id}}" name="badgename-{{item.id}}" style="width:100px;maxlength:20; size:20" 
+        value = "{{item.badgename}}"></input> 
+     
+</td>
+
+<td align=center>
+   <!---
+   <input type="text" class="form-control " id="devices-{{item.id}}" name="devices-{{item.id}}"  style="width:20px;maxlength:20; size:20" 
+        value = {{item.devices}}> 
+   --->
+
+<div class="btn-group">
+            <ul align=left style="list-style: none;text-align: left;">
+              <li align=left style= "margin: 1px 0px;" > <label><input type="radio" name="devices-{{item.id}}" value="0" id="devices-{{item.id}}" {% if item.devices == "0" %} checked  {% endif %}>Electronic.</label>  </li>
+                
+              <li align=left  style= "margin: 1px 0px;"><label><input type="radio" name="devices-{{item.id}}" value="1" id="devices-{{item.id}}"  
+               {% if item.devices == "1" %} checked  {% endif %} >Yes, but printed.</label></li> 
+                 
+             <li align=left style= "margin: 1px 0px;"><label><input type="radio" name="devices-{{item.id}}" value="2" id="devices-{{item.id}}"   
+              {% if item.devices == "2" %}checked  {% endif %}/> Need printed.</label></li>
+            </ul>
+
+
+            
+      </div>
+
+     
+</td>
+
+<td align=center>
+  <!---
+   <input type="text" class="form-control " id="meals-{{item.id}}" name="meals" style="width:30px" 
+        value = {{item.meals}}></input> 
+  -->
+
+  <div class="btn-group">
+            <ul align=center style="list-style: none; text-align: left;">
+              <li style= "margin: 1px 0px;"> <label><input type="radio" name="meals-{{item.id}}" value="1" id="meals-{{item.id}}" {% if item.meals  %}checked  {% endif %}>Yes</label>  </li>
+                
+              <li style= "margin: 1px 0px;"><label><input type="radio" name="meals-{{item.id}}" value="0" id="meals-{{item.id}}" {% if  not item.meals %}checked  {% endif %}   >No</label></li> 
+              
+            </ul>
+  </div>
+
+     
+</td align=center>
+
+<td align=center>
+   <input type="text" class="form-control " id="guestname-{{item.id}}" name="guestname-{{item.id}}" style="width:125px" 
+        value = "{{item.guest_firstname }} {{item.guest_lastname }}"></input> 
+     
+</td>
+
+<td align=center>
+   <!---
+   <input type="text" class="form-control " id="guestmeals1-{{item.id}}" name="guestmeals1-{{item.id}}" style="width:30px" 
+        value = {{item.guestmeals1 }}></input> 
+   -->
+
+   <div class="btn-group">
+            <ul align=center style="list-style: none; text-align: left;">
+              <li style= "margin: 1px 0px;"> <label><input type="radio" name="guestmeals1-{{item.id}}" value="1" id="guestmeals1-{{item.id}}" {% if item.guestmeals1  %}checked  {% endif %}>Yes</label>  </li>
+                
+              <li style= "margin: 1px 0px;"><label><input type="radio" name="guestmeals1-{{item.id}}" value="0" id="guestmeals1-{{item.id}}" {% if  not item.guestmeals1 %}checked  {% endif %}   >No</label></li> 
+              
+            </ul>
+  </div> 
+     
+</td>
+
+<td align=center>
+   <!---
+   <input type="text" class="form-control " id="guestmeals2-{{item.id}}" name="guestmeals2-{{item.id}}" style="width:30px" 
+        value = {{item.guestmeals2 }}></input>
+   --> 
+
+<div class="btn-group">
+            <ul align=center style="list-style: none; text-align: left;">
+              <li style= "margin: 1px 0px;"> <label><input type="radio" name="guestmeals2-{{item.id}}" value="1" id="guestmeals2-{{item.id}}" {% if item.guestmeals2  %}checked  {% endif %}>Yes</label>  </li>
+                
+              <li style= "margin: 1px 0px;"><label><input type="radio" name="guestmeals2-{{item.id}}" value="0" id="guestmeals2-{{item.id}}" {% if  not item.guestmeals2 %}checked  {% endif %}   >No</label></li> 
+              
+            </ul>
+  </div>  
+     
+</td>
+ 
+
+
+</tr>
+
+<tr height="10px" style="background-color:white">
+<td colspan=9 height="10px" align=center style="background-color:white">
+ <center><strong>--------------------</strong></center>
+</td>
+</tr>
+
+ 
+ 
+{% endfor %}
+
+</tr>
+<tr>
+<td><button type="submit" class="btn btn-primary">Update</button></td>
+
+</tr>
+ 
+
+</table><a href="csvdown?id={{ event.id}}" title="Download Registrants"><i class="fa fa-download fa-2x" aria-hidden="true"></i></a>
+
+
+<table class="table table-striped" style="width:160%" align=right>
+<thead align="center">
+<tr align="center">
+ 
+</tr>
+</thead>
+<tbody>
+ 
+</tbody>
+</table>
+
+</div>
+  </div>
+    </div>
+<hr style = " height: 2px; background-color:#555; margin-top: 20px; margin-bottom: 20px; width: 75%;">
+ 
+ 
+
+
+
+
+
+
+<div style="width: 120%; display: table;">
+<div style="display: table-row">
+ 
+<div style="width: 100%; display: table-cell;">
+ 
+
+</div> <!--Left Div -->
+
+
+</div>
+</div>
+
+    	          </div>
+    	           
+    	           
+    	      </article><!-- /our services -->
+
+    	       
+               
+
+    	      <article class="span3"><!-- service -->
+    	          <div class="picture">
+    	               
+    	                   
+    	              	   
+    	          	   
+    	          </div>
+    	           
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	  </div><!-- /services -->
+
+    	  <div class="row">
+    	       
+    	  </div>
+
+    	  <div class="row">
+
+    	       
+    	       
+
+    	       
+
+    	  </div><!-- /row -->
+
+    	</div>
+    </div> <!-- /container -->
+ 
+     
+
+    <div class="container">
+
+         
+
+         
+
+         
+
+    </div> <!-- /container -->
+{% endblock main-content %}
+
+ 
+ 
+  </body>
+   
+</html>

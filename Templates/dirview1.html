@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<style>
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+</style>
+
+{% extends "base.html" %}
+{% load tagging_tags %}
+{% load humanize %}
+ 
+{% block banner %}
+<br><br>  
+{% endblock banner %}
+  
+   
+{% block main-content %}
+    <div class="main-content">
+    	<div class="container">
+
+    	  <div class="row" style="align=center">
+
+    	      <article class="span4"><!--   -->
+    	          <div class="lined"><br><br><br><br>
+    	               <h2> <span class="light">Click on a Specialty below to see agencies that provide those services</span></h2>  
+                      <h2>or <a href="search3"><button type="button" class="btn btn-info btn-xs">Click here for more Search options</button></a></h2>
+
+                      {% tag_cloud_for_model Isure.Directory as dtags with steps=8  distribution=log %}
+                      <br> 
+                      {% for item in dtags %}
+
+                           
+                            <a href="/directory?spec={{item.id}}"><span style="font-size:2{{item.font_size}}px;color:orange;">{{item.name}}<br>   </span></a>   
+
+                      {% endfor %} 
+                          
+    	              
+    	               
+    	          </div>
+    	           
+    	           
+    	      </article><!-- /our services -->
+
+    	      <article class="span6"><!-- service -->
+    	          <div class="picture">
+    	               
+    	                   
+    	              	   
+    	          </div>
+                 <!--
+    	          <div>
+    	          	
+                        <img src="/static/Pics/Members-Only-Basecamp-copy.jpg" alt="" width="215" height="137" /> 
+    	          	<span class="bolded-line"></span>
+    	          </div>
+                  -->
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	      <article class="span5"><!-- service -->
+    	           
+    	          <div>
+    	          	<h3 class="size-18" style="color:orange; font-size:28px;">Intersure Partner Directory Details </h3>
+
+                         <a href="{{thisMember.url}}" target="_blank"><img src="/static/{{thisMember.Image}}" alt="" width="200" height="200" /> </a>
+                         <table>
+                          
+                         <tr>
+                         <td><strong>{{thisMember.AgencyName}}</strong><br><br>
+                         
+                             <strong>Business Type:</strong>  {{thisMember.BusinessType}} <br>
+                             <strong>Category/Differentiator:</strong> <br>
+                             {{thisMember.Differentiator}}<br>
+                             <strong>Website:</strong> <a href='{{thisMember.url}}'>{{thisMember.url}}</a><br>
+                             <strong>HQ:</strong>  {{thisMember.HQCity}}, {{thisMember.HQState}}<br>
+                             
+                             
+                             
+                             <strong>Number of Principals:</strong>{{thisMember.principals}}<br>
+                             
+                             <strong>Primary Contact:</strong>  {{thisMember.PrimaryContactFN}} {{thisMember.PrimaryContactLN}}<br>
+
+                             
+      
+                             
+                             <strong>Phone Number:</strong>  {{thisMember.DirectLine}}<br>
+
+
+                             {% if thiskeycontact %}
+                                <strong>Key Contacts:</strong>
+                              {% for item in thiskeycontact %}
+                                 <div class="tooltip">
+                                  {{item.ContactFN}} {{ item.ContactLN }}&nbsp;&nbsp;<br>
+                                  <span class="tooltiptext">
+                                  {% for skill in item.expertise.all %}
+                                  {{skill.expertise}}
+                                  {% endfor %}
+                                  </span>
+                                 </div>
+                              {% endfor %}
+
+                             <br>
+                             {% endif %}     
+                             
+                             <strong>Number of Employees:</strong> {{thisMember.employees}}<br>
+                             
+                              
+
+                             <strong>Total Revenue:</strong> ${{thisMember.Revenue|intcomma}} <br>
+                             <strong>Business Breakdown:</strong>
+                                  <ul> 
+                                     <li>&nbsp;&nbsp;&nbsp;Comm: {{thisMember.CommPct}}%</li>
+                                     <li>&nbsp;&nbsp;&nbsp;Bene: {{thisMember.BenePct}}% </li>
+                                     <li>&nbsp;&nbsp;&nbsp;Pers: {{thisMember.PersPct}}% <br></li>
+                                  </ul>
+                             <strong>Specialties: </strong><br>{{thisMember.tags}}<br>
+
+                             <strong>Company Goals: </strong><br>
+                             {% if thisMember.goals1 or thisMember.goals2 or thisMember.goals3 %}
+                                <ol>
+                                    <li>{{thisMember.goals1}}</li>
+                                    <li>{{thisMember.goals2}}</li>
+                                    <li>{{thisMember.goals3}}</li>
+                                 </ol> 
+                              {% else %}
+                                 &nbsp;&nbsp;&nbsp;&nbsp;<strong> (None Submitted) </strong><br>
+                              {% endif %} 
+
+   
+                             <strong>Company Awards:</strong><br>
+                            {% if thisMember.awards1 or thisMember.awards2 or thisMember.awards3 %}
+                                 <ol>
+                                    <li>{{thisMember.awards1}}</li>
+                                    <li>{{thisMember.awards2}}</li>
+                                    <li>{{thisMember.awards3}}</li>
+                                 </ol> 
+                            {% else %}
+                                 &nbsp;&nbsp;&nbsp;&nbsp;<strong> (None Submitted) </strong><br>
+                            {% endif %} 
+ 
+                             
+                             <strong>Agency CRM:</strong>&nbsp;{{thisMember.CRM}} <br> 
+                             <strong>Agency AMS:</strong>&nbsp;{{thisMember.AMS}} <br>
+                               
+                          </td>
+
+                         <td>  </td>
+                         
+                         </tr>
+                         {% if request.user.is_staff %}
+                         <tr><td><p><a href="admin/Isure/directory/{{thisMember.id}}/change/" target="_blank"><button type="button" class="btn btn-info btn-xs">edit</button></a></p></td></tr>
+                         {% endif %}
+                          
+                          
+                         </table>
+                        
+    	          	 
+    	          </div>
+    	           
+    	           
+    	      </article><!-- /service -->
+
+    	       
+
+    	  </div><!-- /services -->
+
+    	   
+
+    	   
+
+    	</div>
+    </div> <!-- /container -->
+ 
+    
+
+    <div class="container">
+
+         
+         
+
+         
+
+    </div> <!-- /container -->
+{% endblock main-content %}
+
+
+  </body>
+   
+</html>

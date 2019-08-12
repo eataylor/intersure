@@ -1,4 +1,29 @@
 <!DOCTYPE html>
+<style>
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 220px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+</style>
 
 {% extends "base.html" %}
 {% load tagging_tags %}
@@ -18,14 +43,14 @@
     	      <article class="span4"><!--   -->
     	          <div class="lined"><br><br><br><br>
     	               <h2> <span class="light">Click on a Specialty below to see agencies that provide those services</span></h2>  
-                      <h2>or <a href="search"><button type="button" class="btn btn-info btn-xs">Click here for more Search options</button></a></h2>
+                      <h2>or <a href="search3"><button type="button" class="btn btn-info btn-xs">Click here for more Search options</button></a></h2>
 
                       {% tag_cloud_for_model Isure.Directory as dtags with steps=8  distribution=log %}
                       <br> 
                       {% for item in dtags %}
 
                            
-                            <a href="/directory?spec={{item.id}}"><span style="font-size:2{{item.font_size}}px;color:orange;">{{item.name}}   </span></a>   
+                            <a href="/directory?spec={{item.id}}"><span style="font-size:2{{item.font_size}}px;color:orange;">{{item.name}}<br>   </span></a>   
 
                       {% endfor %} 
                           
@@ -69,15 +94,41 @@
                              {{thisMember.Differentiator}}<br>
                              <strong>Website:</strong> <a href='{{thisMember.url}}'>{{thisMember.url}}</a><br>
                              <strong>HQ:</strong>  {{thisMember.HQCity}}, {{thisMember.HQState}}<br>
-                             <strong>Phone Number:</strong>{{thisMember.DirectLine}}<br>
+                             
+                             
                              
                              <strong>Number of Principals:</strong>{{thisMember.principals}}<br>
                              
-                             <strong>Number of Employees:</strong>{{thisMember.employees}}<br>
+                             <strong>Primary Contact:</strong>  {{thisMember.PrimaryContactFN}} {{thisMember.PrimaryContactLN}}<br>
+
+                             
+      
+                             
+                             <strong>Phone Number:</strong>  {{thisMember.DirectLine}}<br>
+
+
+                             {% if thiskeycontact %}
+                                <strong>Key Contacts:</strong>
+                              {% for item in thiskeycontact %}
+                                 <div class="tooltip">
+                                  {{item.ContactFN}} {{ item.ContactLN }}&nbsp;&nbsp;<br>
+                                  <span class="tooltiptext">
+                                  {% for skill in item.expertise.all %}
+                                  {{skill.expertise}}
+                                  {% endfor %}
+                                   {{item.ContactEmail}}<br> or<br>  {{item.ContactPhone}}
+                                  </span>
+                                 </div>
+                              {% endfor %}
+
+                             <br>
+                             {% endif %}     
+                             
+                             <strong>Number of Employees:</strong> {{thisMember.employees}}<br>
                              
                               
 
-                             <strong>Total Revenue:</strong>{{thisMember.Revenue|intcomma}} <br>
+                             <strong>Total Revenue:</strong> ${{thisMember.Revenue|intcomma}} <br>
                              <strong>Business Breakdown:</strong>
                                   <ul> 
                                      <li>&nbsp;&nbsp;&nbsp;Comm: {{thisMember.CommPct}}%</li>
@@ -115,7 +166,7 @@
                                
                           </td>
 
-                         <td> <a href="{{thisMember.url}}" target="_blank"><img src="/static/{{thisMember.Image}}" alt="" width="200" height="200" /> </td>
+                         <td>  </td>
                          
                          </tr>
                          {% if request.user.is_staff %}

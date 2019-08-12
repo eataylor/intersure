@@ -16,8 +16,8 @@
       }
       /* Optional: Makes the sample page fill the window. */
       div  #map_canvas {
-     height: 400px;
-     width: 450px;
+     height: 420px;
+     width: 575px;
      margin: 0px;
      padding: 0px
   }
@@ -40,7 +40,7 @@ google.maps.event.addDomListener(window, "load", initialize);
 function initialize() {
   map = new google.maps.Map(
     document.getElementById("map_canvas"), {
-      center: new google.maps.LatLng(44.986656, -93.258133),
+      center: new google.maps.LatLng(33.8676243, -84.4760064),
       zoom: 3,
       panControl: true,
       zoomControl: true,
@@ -165,23 +165,26 @@ function createMarker(results) {
     	                <h1 class="entry-title post-title">Intersure Global Partners</h1>
 
 
-				<div class="post-entry" style="padding-left: 1cm;">
+				<div class="post-entry" style="padding-left: 10px;">
 				<!-- <h1>Intersure Global Partners</h1> -->
-
-<div align=center id="map_canvas" style="width:850px; height:350px;padding-left: 1cm;"></div>
+<div  class="container" style="height:450px;width:650px">
+<div id = "map"  style="margin: 0 auto;text-align:center;overflow: auto;position: relative;padding-bottom: 5%;">
+<div class="embed"   align=left id="map_canvas" style="padding-left: .1cm;"></div>
  
-
+</div>
+</div>
 
 
 	
-
-<div style="padding-left: 1cm;">	
+<div class="post-entry">
+<div style="padding-left: .1cm;">	
 <p style="font-size:16px;">Our member companies are unique. They are fiercely independent and intend to stay that way, and are leaders in their marketplaces <strong>driven by innovation and out-of-the-box thinking.</strong> Intersure links these like minded professionals, giving them resources and access to a network of non-competing firms who can relate to the challenges they’re facing. When we come together, we engage in a transparent, candid, and REAL dialogue.</p>
 <p style="font-size:16px;"><strong>Among partners, nothing is held back.</strong> Our combined talent, experience, and market clout allows partner agencies to take on even the mega brokers in the industry while staying independent and true to their unique identity.</p>
 									</div>
 				<!-- end of .post-entry -->
     	              
     	          </div>
+</div>
     	           
     	         
     	      </article><!-- /our services -->

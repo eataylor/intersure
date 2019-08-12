@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+{% load tagging_tags %}
+{% load quick_links %}
+ 
+{% block banner %}
+<br><br><br> 
+{% endblock banner %}
+  
+   
+{% block main-content %}
+    <div class="main-content">
+    	<div class="container">
+
+    	  <div class="row">
+
+    	      <article class="span7"><!--   -->
+    	          <div class="lined">
+                      <div class="post-entry">
+					 
+
+
+{% if msg %}
+<h2 style="color:orange"> {{ msg }} </h2>
+{% endif %}
+ 
+
+<div style="display: none;">
+ 
+</div>  
+<h2>View a Video Course</h2><br>
+  <div class="form-group " style="width:150%" >
+  <div class="picture" style="width:95%">
+                   {% if this_type == "" %}
+                     <p> There is no video to show </p>
+                   {% else %}
+                      <p>{{this_video.blurb1}}  <br>
+                       {{this_video.blurb2}}   </p>
+
+                      {% if this_type == "d" %}
+                         <div style="width:90%">
+  <video controls="controls" width="800" height="600" name="Video Name" src="{{video_id}}"></video>
+     
+
+                       </div>
+                       {% else %}
+
+                      
+                      <iframe width="620" height="315"
+                        src="https://www.youtube.com/embed/{{video_id}}">
+                      </iframe> 
+                   {% endif %}
+                   {% endif %}
+    	               
+    	                   
+    	              	   
+    	          </div>
+
+  
+     
+
+     
+  </div>
+  
+ 
+
+
+<br><br>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+ 
+
+                       
+    	          </div>
+    	           
+    	           
+    	      </article><!-- /our services -->
+
+    	      <article class="span3"><!-- service -->
+    	          
+    	          <div>
+    	          	
+                      
+    	          	 
+    	          </div>
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	      <article class="span3"><!-- service -->
+    	           
+    	          <div>
+    	          	<h3 class="size-18"> </h3>
+                         
+                         
+                        
+    	          	 
+    	          </div>
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	      <article class="span3"><!-- service -->
+    	          <div class="picture">
+    	               
+    	                   
+    	              	   
+    	          	   
+    	          </div>
+    	           
+    	          <p> </p>
+    	           
+    	      </article><!-- /service -->
+
+    	  </div><!-- /services -->
+
+    	  
+
+    	  <div class="row">
+
+    	       
+    	       
+
+    	       
+
+    	  </div><!-- /row -->
+
+    	</div>
+    </div> <!-- /container -->
+ 
+    
+
+    <div class="container">
+
+        <div class="row"><!-- about us -->
+             
+        </div><!-- /about us -->
+
+         
+
+         
+
+    </div> <!-- /container -->
+{% endblock main-content %}
+
+
+  </body>
+   
+</html>
